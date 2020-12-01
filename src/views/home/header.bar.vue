@@ -1,14 +1,16 @@
 <template>
-  <div class="app">
+  <div class="app" :style="{ 'margin-top': `${top}px` }">
     <div class="line">
-      <p style="margin-left: 15px;">@</p>
-      <p style="margin-left: 15px; font-weight: bold; font-size: 17px; ">
-        SPRD-lABORATORY
-      </p>
+      <img
+        style="margin-left: 15px;width: 120px; height: 100%; -webkit-font-smoothing: antialiased;"
+        src="@/assets/icon/紫光展锐-反白.png"
+        alt=""
+      />
       <div style="flex: 2;"></div>
       <div
         class="button"
-        style="width: 100px; height: 100%; line-height: 52px; "
+        style="width: 100px; height: 100%; line-height: 52px;"
+        @click="onJumpDevops"
       >
         进入主页
       </div>
@@ -23,15 +25,30 @@ import { mapState, mapGetters } from 'vuex'
 export default Vue.extend({
   name: '',
   components: {},
+  data() {
+    return {
+      top: -52,
+    }
+  },
   computed: {
-    ...mapState('user', {}),
-    ...mapGetters('user', ['routes']),
+    ...mapState('video', {
+      show: (state: any) => {
+        return state.show
+      },
+    }),
+  },
+  watch: {
+    show(newV, oldV) {
+      this.top = newV ? 0 : -52
+    },
   },
   filters: {},
-  methods: {},
-  async mounted() {
-    //
+  methods: {
+    onJumpDevops() {
+      this.$router.push('/ci')
+    },
   },
+  async mounted() {},
 })
 </script>
 
@@ -43,6 +60,7 @@ export default Vue.extend({
   color: #fefefe;
   text-align: center;
   font-size: 14px;
+  transition: margin-top 0.5s cubic-bezier(0.42, 0, 0.58, 1) 0s;
 }
 .line {
   width: 100%;

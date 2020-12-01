@@ -6,33 +6,33 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapState, mapGetters } from "vuex";
+import Vue from 'vue'
+import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
-  name: "Home",
+  name: 'Home',
   components: {},
   data() {
     return {
-      status: "demo"
-    };
+      status: 'demo',
+    }
   },
   filters: {
     demo(status: string) {
-      return status;
-    }
+      return status
+    },
   },
   methods: {
     async onDemo() {
-      await this.$store.dispatch("demo");
-    }
+      await this.$store.dispatch('demo')
+    },
   },
   async mounted() {
-    await this.$func.mSleep(1000);
+    await this.$func.mSleep(1000)
 
-    console.log(1);
-  }
-});
+    console.log(1)
+  },
+})
 </script>
 
 <style lang="less" scoped>
@@ -52,5 +52,20 @@ export default Vue.extend({
 .item {
   // 元素不被flex压缩
   flex-shrink: 0;
+}
+
+.el-menu {
+  border: 0px;
+  &:hover {
+    background-color: #ff0;
+  }
+}
+.el-menu-item {
+  &:hover {
+    background-color: #ff0;
+  }
+  &:focus {
+    background-color: #ff0;
+  }
 }
 </style>

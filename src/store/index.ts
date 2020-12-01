@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { user } from './user'
+import { video } from './video'
 import { branch } from './branch'
 import { product } from './product'
 import { node } from './node'
@@ -16,5 +17,5 @@ export default new Vuex.Store({
       console.log(3)
     },
   },
-  modules: { user, branch, product, node },
+  modules: { user, video, branch, product, node },
 })

@@ -5,22 +5,25 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { mapState, mapGetters } from "vuex";
+import Vue from 'vue'
+import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
-  name: "",
+  name: '',
   components: {},
+  data() {
+    return {}
+  },
   computed: {
-    ...mapState("user", {}),
-    ...mapGetters("user", ["routes"])
+    ...mapState('user', {}),
+    ...mapGetters('user', ['routes']),
   },
   filters: {},
   methods: {},
   async mounted() {
     //
-  }
-});
+  },
+})
 </script>
 
 <style lang="less" scoped>
