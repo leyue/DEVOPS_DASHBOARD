@@ -1,7 +1,11 @@
 <template>
   <div class="tab">
     <div>
-      <el-button type="primary">编译</el-button>
+      <iframe
+        class="container"
+        src="https://www.baidu.com/"
+        frameborder="0"
+      ></iframe>
     </div>
   </div>
 </template>
@@ -29,5 +33,9 @@ export default Vue.extend({
 .tab {
   height: 100%;
   overflow: auto;
+}
+.container {
+  width: 100%;
+  height: 400px;
 }
 </style>
