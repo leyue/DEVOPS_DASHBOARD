@@ -1,3 +1,5 @@
+const token = '35ae82ffb63cdaa576308df98b79fc426ba096e0e958a5e46c689e3f7e25c50c'
+
 const branch = {
   namespaced: true,
   state: {
@@ -11,11 +13,16 @@ const branch = {
   },
   actions: {
     async getDoc({ commit, state, rootState }: any) {
-      $ax.setJenkinsUrl()
-      let doc: any = await $ax.ctx.get('/jenkins/branch', {})
+      let doc: any = await $ax.ctx.post(
+        'http://review.source.unisoc.com/mfservice/rest/verify/buildlist',
+        {
+          token,
+          user: 'bm',
+        }
+      )
       console.log(doc)
       state.doc = doc
-      state.current = doc.row[0].name
+      state.current = doc.result[0].branch
     },
   },
   getters: {
