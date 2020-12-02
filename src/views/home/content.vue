@@ -4,16 +4,16 @@
       <div class="logo">
         <img
           style="margin-top: 30px; margin-left: 15px;width: 250px;  -webkit-font-smoothing: antialiased;"
-          src="@/assets/icon/紫光展锐-反白-en.png"
+          :src="scene.res.logo"
           alt=""
         />
       </div>
       <div class="float-controll-bar">
         <div style="font-size: 28px; text-align: left;">
-          梦幻实验室
+          {{ scene.name }}
         </div>
         <div style="text-align: left; width: 70%;">
-          虚幻引擎是全球最开放、最先进的实时3D创作平台。经过持续的改进，它已经不仅仅是一款殿堂级的游戏引擎，还能为各行各业的专业人士带去无限的创作自由和空前的掌控力。无论是前沿内容、互动体验还是沉浸式虚拟世界，一切尽在虚幻引擎。
+          {{ scene.res.text }}
         </div>
         <div
           class="button"
@@ -61,11 +61,12 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('video', {
+    ...mapState({
       show: (state: any) => {
-        return state.show
+        return state.video.control
       },
     }),
+    ...mapGetters({ scene: 'video/scene' }),
   },
   watch: {
     show(newV, oldV) {
@@ -75,14 +76,12 @@ export default Vue.extend({
   filters: {},
   methods: {
     async onShowDetail() {
-      // @ts-ignore
-      let domVideo: any = this.$parent.$refs.videoBg.$refs.video
-      domVideo.pause()
+      this.$store.commit('video/pause', { pause: true })
       this.detail.visable = true
       await this.$func.mSleep(10)
       // @ts-ignore
       let domVideoDetail: any = this.$refs.videoDetail
-      domVideoDetail.loadMovie('0')
+      domVideoDetail.play()
     },
     onDetailClose() {
       // @ts-ignore
@@ -90,9 +89,7 @@ export default Vue.extend({
       domVideo.pause()
     },
     onDetailClosed() {
-      // @ts-ignore
-      let domVideo: any = this.$parent.$refs.videoBg.$refs.video
-      domVideo.play()
+      this.$store.commit('video/pause', { pause: false })
     },
   },
   async mounted() {

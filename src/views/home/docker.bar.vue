@@ -4,7 +4,7 @@
       :class="{ scene: true, 'scene-selected': item.selected }"
       v-for="(item, idx) in scenes"
       :key="idx"
-      @click="onSceneChanged(idx, item)"
+      @click="onSceneChanged(idx)"
     >
       {{ item.name }}
     </div>
@@ -20,20 +20,16 @@ export default Vue.extend({
   components: {},
   data() {
     return {
-      scenes: [
-        { name: '实验室', selected: true },
-        { name: '云测系统', selected: false },
-        { name: '仪表自动化', selected: false },
-        { name: '稳定性实验室', selected: false },
-        { name: '场测介绍', selected: false },
-      ],
       bottom: -80,
     }
   },
   computed: {
-    ...mapState('video', {
+    ...mapState({
       show: (state: any) => {
-        return state.show
+        return state.video.control
+      },
+      scenes: (state: any) => {
+        return state.video.scenes
       },
     }),
   },
@@ -44,18 +40,11 @@ export default Vue.extend({
   },
   filters: {},
   methods: {
-    onSceneChanged(idx: number, scene: any) {
-      this.scenes.map((item) => {
-        item.selected = false
-      })
-      scene.selected = true
-      let domVideoBg: any = this.$parent.$refs.videoBg
-      domVideoBg.changeScene(idx, scene.name)
+    onSceneChanged(idx: number) {
+      this.$store.commit('video/playIdx', { idx })
     },
   },
-  async mounted() {
-    //
-  },
+  async mounted() {},
 })
 </script>
 

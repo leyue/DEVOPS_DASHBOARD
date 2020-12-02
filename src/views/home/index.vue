@@ -29,16 +29,15 @@ export default Vue.extend({
   },
   methods: {
     async onActived() {
-      this.$store.commit('video/show')
-      //@ts-ignore
-      this.$refs.videoBg.onActived()
+      this.$store.commit('video/showControl')
+      this.$store.commit('video/muted', { muted: false })
       this.actived = true
     },
     onMousemoved() {
       if (!this.actived) {
         return
       }
-      this.$store.commit('video/show')
+      this.$store.commit('video/showControl')
     },
   },
   async mounted() {},

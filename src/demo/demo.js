@@ -6,3 +6,5 @@ console.log(time)
 let mo = moment.duration(8.128215, 'seconds')
 
 console.log(`${mo.minutes()}-${mo.seconds()}`)
+
+console.log([1, 2, 3].length)

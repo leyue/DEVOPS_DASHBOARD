@@ -31,9 +31,9 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState('video', {
+    ...mapState({
       show: (state: any) => {
-        return state.show
+        return state.video.control
       },
     }),
   },

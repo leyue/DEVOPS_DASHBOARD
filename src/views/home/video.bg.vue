@@ -1,7 +1,7 @@
 <template>
   <div class="app">
-    <video ref="video" autoplay loop :muted="muted">
-      <source :src="src" type="video/mp4" />
+    <video ref="video" :loop="false" autoplay :muted="muted" @ended="onended">
+      <source :src="scene.res.highlight" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -14,28 +14,46 @@ export default Vue.extend({
   name: '',
   components: {},
   data() {
-    return {
-      id: 0,
-      src: 'https://nats-sh.unisoc.com/download/logs/temp/0.mp4',
-      muted: true,
-    }
+    return {}
   },
   computed: {
-    ...mapState('user', {}),
-    ...mapGetters('user', ['routes']),
+    ...mapState({
+      scenes: (state: any) => {
+        return state.video.scenes
+      },
+      idx: (state: any) => {
+        return state.video.currentIdx
+      },
+      muted: (state: any) => {
+        return state.video.muted
+      },
+      pause: (state: any) => {
+        return state.video.pause
+      },
+    }),
+    ...mapGetters({ scene: 'video/scene' }),
   },
-  filters: {},
-  methods: {
-    onActived() {
-      this.muted = false
-    },
-    changeScene(id: number, name: string) {
-      console.log(id, name)
-      this.src = `https://nats-sh.unisoc.com/download/logs/temp/${id}.mp4`
+  watch: {
+    scene(newV, oldV) {
       let domVideo: any = this.$refs.video
       domVideo.pause()
       domVideo.load()
       domVideo.play()
+    },
+    pause(newV, oldV) {
+      let domVideo: any = this.$refs.video
+      if (newV) {
+        domVideo.pause()
+      } else {
+        domVideo.play()
+      }
+    },
+  },
+  filters: {},
+  methods: {
+    onended() {
+      console.log('onended')
+      this.$store.commit('video/playNext')
     },
   },
   async mounted() {},

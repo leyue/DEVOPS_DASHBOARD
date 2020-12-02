@@ -3,13 +3,14 @@
     <video
       ref="video"
       autoplay
-      loop
+      :loop="false"
       :muted="false"
       controls
+      @ended="onended"
       @loadedmetadata="onLoadedmetadata"
       @timeupdate="onTimeupdate"
     >
-      <source :src="src" type="video/mp4" />
+      <source :src="scene.res.full" type="video/mp4" />
     </video>
   </div>
 </template>
@@ -25,38 +26,35 @@ export default Vue.extend({
   data() {
     return {
       height: 300,
-      src: '',
       duration: 1,
       currentTime: 0,
       formatTime: '',
     }
   },
   computed: {
-    ...mapState('user', {}),
-    ...mapGetters('user', ['routes']),
+    ...mapState({}),
+    ...mapGetters({ scene: 'video/scene' }),
   },
   filters: {},
   methods: {
-    loadMovie(name: string) {
-      this.src = `https://nats-sh.unisoc.com/download/logs/temp/${name}.mp4`
+    play() {
       let domVideo: any = this.$refs.video
       domVideo.pause()
       domVideo.load()
       domVideo.play()
     },
+    onended() {
+      console.log('onended')
+    },
     onLoadedmetadata() {
-      let domVideo: any = this.$refs.video
-      console.log(domVideo.duration)
-      this.duration = domVideo.duration
-      this.currentTime = domVideo.currentTime
+      // let domVideo: any = this.$refs.video
+      // this.duration = domVideo.duration
+      // this.currentTime = domVideo.currentTime
     },
     onTimeupdate() {
-      let domVideo: any = this.$refs.video
-      this.currentTime = domVideo.currentTime
-      let mo = moment.duration(this.currentTime, 'seconds')
-      this.formatTime = `${
-        mo.minutes() > 0 ? `${mo.minutes()}m:` : ''
-      }${mo.seconds()}s`
+      // let domVideo: any = this.$refs.video
+      // this.currentTime = domVideo.currentTime
+      // console.log(this.currentTime)
     },
   },
   async mounted() {
