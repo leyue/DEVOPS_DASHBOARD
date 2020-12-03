@@ -5,9 +5,18 @@
       <router-link to="/about"></router-link>
     </div>
     <router-view />
+    <right-controll-bar></right-controll-bar>
   </div>
 </template>
+<script lang="ts">
+import Vue from 'vue'
+import rightControllBar from '@/views/unique/right.controll.bar.vue'
 
+export default Vue.extend({
+  name: '',
+  components: { rightControllBar },
+})
+</script>
 <style lang="less" scoped>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

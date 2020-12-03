@@ -15,7 +15,7 @@ const video = {
       },
       {
         name: '云测系统',
-        val: 'CloudTestSystem',
+        selected: false,
         res: {
           logo: require('@/assets/icon/紫光展锐-反白-en.png'),
           text:

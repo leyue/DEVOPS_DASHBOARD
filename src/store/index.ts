@@ -9,8 +9,14 @@ import { node } from './node'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    rightControllBar: false,
+  },
+  mutations: {
+    showRightControllBar(state: any, visable) {
+      state.rightControllBar = visable
+    },
+  },
   actions: {
     async demo({ commit, state, rootState }, app) {
       await $func.mSleep(1000)

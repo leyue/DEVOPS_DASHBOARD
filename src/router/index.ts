@@ -1,14 +1,15 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/home/index.vue'
+import Splash from '../views/splash/index.vue'
+import store from '../store'
 
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Splash',
+    component: Splash,
   },
   {
     path: '/ci',
@@ -26,6 +27,21 @@ const router = new VueRouter({
   mode: 'hash',
   base: process.env.BASE_URL,
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  next()
+})
+
+router.afterEach((to, from) => {
+  switch (to.path) {
+    case '/':
+      store.commit('showRightControllBar', false)
+      break
+    default:
+      store.commit('showRightControllBar', true)
+      break
+  }
 })
 
 export default router
