@@ -1,37 +1,16 @@
 <template>
-  <div class="right-controll-bar column" v-show="showRightControllBar">
+  <div class="app column" v-show="showRightControllBar">
     <el-popover
+      v-for="(item, idx) in items"
+      :key="idx"
       placement="left"
       width="0"
       trigger="hover"
-      content="点击进入视频主页"
+      :content="item.tip"
     >
-      <i slot="reference" class="el-icon-picture item"></i>
+      <i slot="reference" :class="item | itemClass" @click="onJump(item)"></i>
     </el-popover>
-    <el-popover
-      placement="left"
-      width="0"
-      trigger="hover"
-      content="点击进入云测主页"
-    >
-      <i slot="reference" class="el-icon-s-home item"></i>
-    </el-popover>
-    <el-popover
-      placement="left"
-      width="0"
-      trigger="hover"
-      content="点击进入全球场测展示"
-    >
-      <i slot="reference" class="el-icon-picture-outline-round item"></i>
-    </el-popover>
-    <el-popover
-      placement="left"
-      width="0"
-      trigger="hover"
-      content="点击进入云测仪表盘"
-    >
-      <i slot="reference" class="el-icon-s-help item"></i>
-    </el-popover>
+
     <div style="flex: 2"></div>
     <el-popover
       placement="left"
@@ -46,33 +25,30 @@
           >
             显示引导页:
           </div>
-          <el-switch size="mini" width="50" v-model="splash"> </el-switch>
+          <el-switch
+            size="mini"
+            :width="50"
+            v-model="splash"
+            @change="onSplashChanged"
+          >
+          </el-switch>
         </div>
-        <div class="line" style="margin-top: 20px;">
+        <div class="line" style="margin-top: 30px;">
           <div
             style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 16px;"
           >
             引导页跳转:
           </div>
           <div>
-            <el-radio
-              style="margin-bottom: 5px; margin-top: 0px;"
-              v-model="homePage"
-              label="1"
-              >云测主页</el-radio
-            >
-            <el-radio
-              style="margin-bottom: 5px; margin-top: 10px;"
-              v-model="homePage"
-              label="2"
-              >全球场测</el-radio
-            >
-            <el-radio
-              style="margin-bottom: 5px; margin-top: 10px;"
-              v-model="homePage"
-              label="3"
-              >云测仪表盘</el-radio
-            >
+            <el-radio-group v-model="homePage" @change="onHomePageChanged">
+              <el-radio style="" label="/home">云测主页</el-radio>
+              <el-radio style="margin-top: 10px;" label="/global"
+                >全球场测</el-radio
+              >
+              <el-radio style="margin-top: 10px;" label="/ci"
+                >云测仪表盘</el-radio
+              >
+            </el-radio-group>
           </div>
         </div>
       </div>
@@ -91,7 +67,37 @@ export default Vue.extend({
   data() {
     return {
       splash: true,
-      homePage: '1',
+      homePage: '/home',
+      items: [
+        {
+          tip: '点击进入视频主页',
+          icon: 'el-icon-picture',
+          enable: true,
+          selected: false,
+          path: '/',
+        },
+        {
+          tip: '点击进入云测主页',
+          icon: 'el-icon-s-home',
+          enable: true,
+          selected: true,
+          path: '/home',
+        },
+        {
+          tip: '点击进入全球场测展示',
+          icon: 'el-icon-picture-outline-round',
+          enable: true,
+          selected: false,
+          path: '/global',
+        },
+        {
+          tip: '点击进入云测仪表盘',
+          icon: 'el-icon-s-help',
+          enable: true,
+          selected: false,
+          path: '/ci',
+        },
+      ],
     }
   },
   computed: {
@@ -101,27 +107,44 @@ export default Vue.extend({
       },
     }),
   },
-  filters: {},
-  methods: {},
-  async mounted() {},
+  watch: {
+    '$route.path'(newV, oldV) {
+      this.items.forEach((item) => {
+        item.selected = item.path == newV
+      })
+    },
+  },
+
+  filters: {
+    itemClass(doc: any) {
+      return `${doc.icon} item ${doc.selected ? 'selected' : ''}`
+    },
+  },
+  methods: {
+    onJump(doc: any) {
+      this.$router.push(doc.path)
+    },
+    onSplashChanged(val: boolean) {
+      localStorage.setItem('setting-enable-splash', `${val}`)
+    },
+    onHomePageChanged(val: string) {
+      localStorage.setItem('setting-home-page', val)
+    },
+  },
+  async mounted() {
+    this.splash =
+      (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
+    this.homePage = localStorage.getItem('setting-home-page') || 'home'
+  },
 })
 </script>
 
 <style lang="less" scoped>
 .app {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  color: #000;
-  box-sizing: border-box;
-}
-
-.right-controll-bar {
-  position: absolute;
+  position: fixed;
   right: 10px;
   top: 200px;
-  width: 70px;
-  height: 400px;
+  height: 350px;
 }
 
 .column {
@@ -133,16 +156,21 @@ export default Vue.extend({
 }
 
 .item {
-  width: 50px;
-  height: 50px;
+  width: 45px;
+  height: 45px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  border-radius: 30px;
+  border-radius: 22px;
   margin: 13px 0 0 0;
   background-color: #fff;
   font-size: 23px;
   text-align: center;
-  line-height: 50px;
+  line-height: 45px;
+  outline: 0;
   &:hover {
+    background-color: #0aaff1;
+    color: #fff;
+  }
+  &.selected {
     background-color: #0aaff1;
     color: #fff;
   }

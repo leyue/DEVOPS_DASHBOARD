@@ -27,7 +27,7 @@ export default Vue.extend({
     await this.$store.dispatch('branch/getDoc')
     await this.$func.mSleep(10)
     let branch = this.$store.state.branch.current
-    console.log(branch)
+    // console.log(branch)
     await this.$store.dispatch('product/getDoc', branch)
     await this.$store.dispatch('node/getDoc', branch)
   },

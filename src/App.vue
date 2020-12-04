@@ -2,10 +2,9 @@
   <div id="app" ref="app">
     <div id="nav">
       <router-link to="/"></router-link>
-      <router-link to="/about"></router-link>
     </div>
     <router-view />
-    <right-controll-bar></right-controll-bar>
+    <right-controll-bar class="rightControllBar"></right-controll-bar>
   </div>
 </template>
 <script lang="ts">

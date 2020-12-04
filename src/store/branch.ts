@@ -13,16 +13,17 @@ const branch = {
   },
   actions: {
     async getDoc({ commit, state, rootState }: any) {
-      let doc: any = await $ax.ctx.post(
-        'http://review.source.unisoc.com/mfservice/rest/verify/buildlist',
-        {
-          token,
-          user: 'bm',
-        }
+      let doc: any = await $ax.ctx.get(
+        // 'http://review.source.unisoc.com/mfservice/rest/verify/buildlist',
+        'http://cmverify.unisoc.com:8080/jenkins/branch'
+        // {
+        //   token,
+        //   user: 'bm',
+        // }
       )
       console.log(doc)
       state.doc = doc
-      state.current = doc.result[0].branch
+      state.current = doc.row[0].branch
     },
   },
   getters: {

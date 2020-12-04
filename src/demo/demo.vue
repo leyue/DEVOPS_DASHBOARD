@@ -17,6 +17,18 @@ export default Vue.extend({
       status: 'demo',
     }
   },
+  computed: {
+    splash: {
+      get() {
+        let enabelSplash = localStorage.getItem('setting-enable-splash')
+        return enabelSplash == null ? true : enabelSplash
+      },
+      set(val: boolean) {
+        debugger
+        localStorage.setItem('setting-enable-splash', `${val}`)
+      },
+    },
+  },
   filters: {
     demo(status: string) {
       return status
@@ -31,6 +43,17 @@ export default Vue.extend({
     await this.$func.mSleep(1000)
 
     console.log(1)
+
+    let moment = require('moment')
+
+    let time = moment().format('YYYY MMMM Do, h:mm:ss a')
+    console.log(time)
+
+    let mo = moment.duration(8.128215, 'seconds')
+
+    console.log(`${mo.minutes()}-${mo.seconds()}`)
+
+    console.log([1, 2, 3].length)
   },
 })
 </script>

@@ -45,7 +45,8 @@ export default Vue.extend({
   filters: {},
   methods: {
     onJumpDevops() {
-      this.$router.push('/ci')
+      let homePage = localStorage.getItem('setting-home-page') || '/home'
+      this.$router.push(homePage)
     },
   },
   async mounted() {},

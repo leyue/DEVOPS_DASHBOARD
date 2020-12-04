@@ -26,6 +26,7 @@ module.exports = {
     'vue/no-unused-components': 0,
     'vue/require-v-for-key': 0,
     'vue/no-empty-method': 0,
+    'vue/no-unused-vars': 0,
     '@typescript-eslint/no-empty-function': 0,
     '@typescript-eslint/interface-name-prefix': 0,
     '@typescript-eslint/ban-ts-ignore': 0,
