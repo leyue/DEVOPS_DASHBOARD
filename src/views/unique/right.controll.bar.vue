@@ -10,7 +10,6 @@
     >
       <i slot="reference" :class="item | itemClass" @click="onJump(item)"></i>
     </el-popover>
-
     <div style="flex: 2"></div>
     <el-popover
       placement="left"
@@ -21,13 +20,15 @@
       <div class="content">
         <div class="line">
           <div
-            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 16px;"
+            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px;"
           >
             显示引导页:
           </div>
           <el-switch
+            id="switch0"
             size="mini"
             :width="50"
+            active-color="#0aaff1"
             v-model="splash"
             @change="onSplashChanged"
           >
@@ -35,7 +36,7 @@
         </div>
         <div class="line" style="margin-top: 30px;">
           <div
-            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 16px;"
+            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px;"
           >
             引导页跳转:
           </div>
@@ -135,6 +136,9 @@ export default Vue.extend({
     this.splash =
       (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
     this.homePage = localStorage.getItem('setting-home-page') || 'home'
+
+    let dom: any = document.getElementById('switch0')
+    dom.parentElement.childNodes[2].style['border-radius'] = '3px'
   },
 })
 </script>
@@ -145,6 +149,7 @@ export default Vue.extend({
   right: 10px;
   top: 200px;
   height: 350px;
+  font-size: 14px;
 }
 
 .column {
