@@ -17,8 +17,18 @@ const routes: Array<RouteConfig> = [
     component: Splash,
   },
   {
+    path: '/home',
+    name: 'home',
+    component: () => import('../views/home/index.vue'),
+  },
+  {
+    path: '/global',
+    name: 'global',
+    component: () => import('../views/global/index.vue'),
+  },
+  {
     path: '/ci',
-    name: 'CI',
+    name: 'ci',
     component: () => import('../views/ci/index.vue'),
   },
 ]
@@ -47,15 +57,6 @@ router.beforeEach((to, from, next) => {
   }
 })
 
-router.afterEach((to, from) => {
-  switch (to.path) {
-    case '/':
-      store.commit('showRightControllBar', false)
-      break
-    default:
-      store.commit('showRightControllBar', true)
-      break
-  }
-})
+router.afterEach((to, from) => {})
 
 export default router

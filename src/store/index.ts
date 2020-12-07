@@ -9,13 +9,9 @@ import { node } from './node'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state: {
-    rightControllBar: false,
-  },
+  state: {},
   mutations: {
-    showRightControllBar(state: any, visable) {
-      state.rightControllBar = visable
-    },
+    demo(state: any) {},
   },
   actions: {
     async demo({ commit, state, rootState }, app) {

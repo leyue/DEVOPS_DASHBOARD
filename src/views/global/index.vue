@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    template
+    global
   </div>
 </template>
 
@@ -20,14 +20,16 @@ export default Vue.extend({
   },
   filters: {},
   methods: {},
-  async mounted() {},
+  async mounted() {
+    //
+  },
 })
 </script>
 
 <style lang="less" scoped>
 .app {
-  box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
 </style>

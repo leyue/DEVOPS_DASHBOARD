@@ -1,5 +1,5 @@
 <template>
-  <div class="app column" v-show="showRightControllBar">
+  <div class="app column" v-show="show">
     <el-popover
       v-for="(item, idx) in items"
       :key="idx"
@@ -67,6 +67,7 @@ export default Vue.extend({
   components: {},
   data() {
     return {
+      show: false,
       splash: true,
       homePage: '/home',
       items: [
@@ -113,6 +114,14 @@ export default Vue.extend({
       this.items.forEach((item) => {
         item.selected = item.path == newV
       })
+      switch (newV) {
+        case '/':
+          this.show = false
+          break
+        default:
+          this.show = true
+          break
+      }
     },
   },
 
@@ -146,7 +155,7 @@ export default Vue.extend({
 <style lang="less" scoped>
 .app {
   position: fixed;
-  right: 10px;
+  right: 5px;
   top: 200px;
   height: 350px;
   font-size: 14px;
