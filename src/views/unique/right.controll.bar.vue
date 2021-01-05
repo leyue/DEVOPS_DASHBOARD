@@ -1,5 +1,11 @@
 <template>
   <div class="app column" v-show="show">
+    <i
+      v-if="false"
+      slot="reference"
+      @click="onDemoClick"
+      class="el-icon-warning-outline item"
+    ></i>
     <el-popover
       v-for="(item, idx) in items"
       :key="idx"
@@ -73,7 +79,7 @@ export default Vue.extend({
       items: [
         {
           tip: '点击进入视频主页',
-          icon: 'el-icon-picture',
+          icon: 'el-icon-video-camera',
           enable: true,
           selected: false,
           path: '/',
@@ -87,7 +93,7 @@ export default Vue.extend({
         },
         {
           tip: '点击进入全球场测展示',
-          icon: 'el-icon-picture-outline-round',
+          icon: 'el-icon-picture',
           enable: true,
           selected: false,
           path: '/global',
@@ -103,11 +109,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    ...mapState({
-      showRightControllBar: (state: any) => {
-        return state.rightControllBar
-      },
-    }),
+    ...mapState({}),
   },
   watch: {
     '$route.path'(newV, oldV) {
@@ -140,24 +142,40 @@ export default Vue.extend({
     onHomePageChanged(val: string) {
       localStorage.setItem('setting-home-page', val)
     },
+    async onDemoClick() {
+      let doc = await this.$ax.ctx.post(
+        'http://127.0.0.1:8080/verify/mfservice/rest/verify/buildconfig',
+        {
+          token:
+            '35ae82ffb63cdaa576308df98b79fc426ba096e0e958a5e46c689e3f7e25c50c',
+          user: 'bm',
+          name: 'sprdroid10_trunk_19c_widevine_dev',
+        }
+      )
+    },
   },
   async mounted() {
     this.splash =
       (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
     this.homePage = localStorage.getItem('setting-home-page') || 'home'
 
-    let dom: any = document.getElementById('switch0')
-    dom.parentElement.childNodes[2].style['border-radius'] = '3px'
+    // let dom: HTMLElement | any = document.getElementById('switch0')
+    // dom.parentElement.childNodes[2].style['border-radius'] = '3px'
   },
 })
 </script>
 
+<style lang="less">
+.el-switch__core {
+  border-radius: 0px;
+}
+</style>
 <style lang="less" scoped>
 .app {
   position: fixed;
   right: 5px;
   top: 200px;
-  height: 350px;
+  height: 380px;
   font-size: 14px;
 }
 

@@ -1,11 +1,9 @@
 <template>
   <div class="tab">
     <div>
-      <iframe
-        class="container"
-        src="https://www.baidu.com/"
-        frameborder="0"
-      ></iframe>
+      <iframe class="container" <!-- src="https://www.baidu.com/" -->
+        frameborder="0" ></iframe
+      >
     </div>
   </div>
 </template>
@@ -33,9 +31,5 @@ export default Vue.extend({
 .tab {
   height: 100%;
   overflow: auto;
-}
-.container {
-  width: 100%;
-  height: 400px;
 }
 </style>

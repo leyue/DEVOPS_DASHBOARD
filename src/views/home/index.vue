@@ -2,10 +2,10 @@
   <div class="app">
     <div class="header">云测主页</div>
     <div class="content">
-      <dashboard></dashboard>
+      <com-summary></com-summary>
       <div class="line" style="margin-top: 10px;">
-        <team></team>
-        <project></project>
+        <com-team></com-team>
+        <com-project></com-project>
       </div>
     </div>
   </div>
@@ -14,13 +14,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
-import dashboard from './dashboard.vue'
-import project from './project.vue'
-import team from './team.vue'
+import comSummary from './summary.vue'
+import comProject from './project.vue'
+import comTeam from './team.vue'
 
 export default Vue.extend({
   name: '',
-  components: { dashboard, project, team },
+  components: { comSummary, comTeam, comProject },
   data() {
     return {}
   },

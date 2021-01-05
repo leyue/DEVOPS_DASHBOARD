@@ -49,10 +49,10 @@
           </el-tab-pane>
           <el-tab-pane>
             <span slot="label"
-              ><div class="tab-pane">制品 (Artifacts)</div></span
+              ><div class="tab-pane">流程监控 (Flow Monitor)</div></span
             >
             <div class="page">
-              <artifact />
+              <flow-monitor />
             </div>
           </el-tab-pane>
         </el-tabs>
@@ -68,11 +68,11 @@ import build from './build.vue'
 import change from './change.vue'
 import scan from './scan.vue'
 import test from './test.vue'
-import artifact from './artifact.vue'
+import flowMonitor from './flow.monitor.vue'
 
 export default Vue.extend({
   name: '',
-  components: { build, change, scan, test, artifact },
+  components: { build, change, scan, test, flowMonitor },
   data() {
     return {
       // width: 0,
@@ -180,7 +180,8 @@ export default Vue.extend({
       z-index: 0;
       .page {
         padding: 0 20px;
-        height: 360px;
+        height: 430px;
+        overflow: auto;
       }
     }
   }

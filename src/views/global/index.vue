@@ -1,35 +1,130 @@
 <template>
   <div class="app">
-    global
+    <div class="header">全球场测</div>
+    <div class="content">
+      <baidu-map
+        ref="BMGL"
+        class="bm-view"
+        center="中国"
+        ak="2LgYzVvfGProTEMtXaPwaQ29B3HcGvLF"
+        :zoom="0"
+        :scroll-wheel-zoom="true"
+        :style="{ height: `${mapHeight}px` }"
+      >
+        <bm-city-list anchor="BMAP_ANCHOR_TOP_LEFT"></bm-city-list>
+        <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
+        <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"></bm-navigation>
+        <bm-marker-clusterer :averageCenter="true">
+          <bm-marker
+            v-for="marker of markers"
+            :key="marker.code"
+            :position="{ lng: marker.lng, lat: marker.lat }"
+            @click="lookDetail(marker)"
+          ></bm-marker>
+        </bm-marker-clusterer>
+      </baidu-map>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
+import BaiduMap from 'vue-baidu-map/components/map/Map.vue'
+import BmScale from 'vue-baidu-map/components/controls/Scale.vue'
+import BmCityList from 'vue-baidu-map/components/controls/CityList.vue'
+import BmNavigation from 'vue-baidu-map/components/controls/Navigation.vue'
+import BmMarkerClusterer from 'vue-baidu-map/components/extra/MarkerClusterer.vue'
+import BmMarker from 'vue-baidu-map/components/overlays/Marker.vue'
+import BmInfoWindow from 'vue-baidu-map/components/overlays/InfoWindow.vue'
+import BmPointCollection from 'vue-baidu-map/components/overlays/PointCollection.vue'
 
 export default Vue.extend({
   name: '',
-  components: {},
+  components: {
+    BaiduMap,
+    BmScale,
+    BmCityList,
+    BmNavigation,
+    BmMarkerClusterer,
+    BmMarker,
+    BmInfoWindow,
+    BmPointCollection,
+  },
   data() {
-    return {}
+    return {
+      mapHeight: 700,
+      markers: [{ name: '', desc: '', lng: 0, lat: 0 }],
+      marker: {
+        show: false,
+        lng: 0,
+        lat: 0,
+        name: '',
+        desc: '',
+      },
+    }
   },
   computed: {
     ...mapState('user', {}),
     ...mapGetters('user', ['routes']),
   },
   filters: {},
-  methods: {},
+  methods: {
+    lookDetail(data: any, target: any) {
+      console.log(data, target)
+    },
+  },
   async mounted() {
-    //
+    for (var i = 0; i < 100; i++) {
+      const position: any = {
+        name: 'sh',
+        desc: '...',
+        lng: Math.random() * 40 + 85,
+        lat: Math.random() * 30 + 21,
+      }
+      this.markers.push(position)
+
+      let doms: any = document.getElementsByClassName('anchorBL')[0]
+      console.log(doms)
+      this.mapHeight = window.innerHeight - 80
+      window.onresize = () => {
+        this.mapHeight = window.innerHeight - 80
+      }
+    }
   },
 })
 </script>
 
 <style lang="less" scoped>
 .app {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  box-sizing: border-box;
+  margin: 0 0 0 0px;
+  padding: 0;
+  width: 100%;
+}
+.header {
+  width: 100%;
+  height: 50px;
+  background-color: #2a2a2acc;
+  color: #fefefe;
+  line-height: 50px;
+  padding-left: 15px;
+  font-size: 20px;
+  position: fixed;
+  top: 0px;
+}
+.content {
+  margin: 65px 56px 0 15px;
+}
+.bm-view {
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  padding: 4px;
+  background-color: #2a2a2a44;
+}
+.anchorBL {
+  display: none;
 }
 </style>

@@ -11,7 +11,7 @@
           </el-button>
           -项目总数
           <div style="flex: 2"></div>
-          <p style="color: #1b83c6">78个</p>
+          <p style="color: #1b83c6">178个</p>
         </div>
         <div class="item line">
           <el-button
@@ -78,9 +78,7 @@ export default Vue.extend({
   },
   filters: {},
   methods: {},
-  async mounted() {
-    //
-  },
+  async mounted() {},
 })
 </script>
 
