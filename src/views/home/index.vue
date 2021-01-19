@@ -2,11 +2,11 @@
   <div class="app">
     <div class="header">云测主页</div>
     <div class="content">
-      <com-summary></com-summary>
-      <div class="line" style="margin-top: 10px;">
-        <com-team></com-team>
+      <div class="line" style="margin-top: 0px; margin-bottom: 5px;">
+        <com-summary></com-summary>
         <com-project></com-project>
       </div>
+      <com-team></com-team>
     </div>
   </div>
 </template>

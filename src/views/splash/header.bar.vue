@@ -2,7 +2,7 @@
   <div class="app" :style="{ 'margin-top': `${top}px` }">
     <div class="line">
       <img
-        style="margin-left: 15px;width: 120px; height: 100%; -webkit-font-smoothing: antialiased;"
+        style="margin-left: 15px; width: 120px; height: 100%; -webkit-font-smoothing: antialiased;"
         src="@/assets/icon/紫光展锐-反白.png"
         alt=""
       />
@@ -54,6 +54,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
+// @import url('../../glob/index.less');
 .app {
   width: 100%;
   height: 52px;

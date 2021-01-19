@@ -2,6 +2,7 @@ module.exports = {
   outputDir: 'dist',
   assetsDir: 'assets',
   lintOnSave: true,
+  publicPath: './',
   devServer: {
     open: true,
     host: '127.0.0.1',

@@ -1,3 +1,7 @@
-let arry = [1, 'a', 3, 4]
-arry.splice(1, 1)
-console.log(arry)
+let d0 = '/*'
+
+let lst = d0.split('/').filter((item) => {
+  return item != ''
+})
+
+console.log(lst.length, lst)

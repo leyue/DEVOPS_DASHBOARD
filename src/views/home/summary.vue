@@ -1,7 +1,20 @@
 <template>
-  <div class="app">
+  <div class="home-summary">
     <div class="box">
-      <div>
+      <el-progress
+        color="#2a2a2acc"
+        :text-inside="true"
+        :show-text="false"
+        :stroke-width="5"
+        :percentage="percentage"
+        status="success"
+      ></el-progress>
+      <div style="padding: 15px;">
+        <div
+          style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-bottom: 20px;"
+        >
+          信息汇总
+        </div>
         <div class="item line">
           <el-button
             size="mini"
@@ -11,7 +24,7 @@
           </el-button>
           -项目总数
           <div style="flex: 2"></div>
-          <p style="color: #1b83c6">178个</p>
+          <p style="color: #1b83c6">{{ projectCnt }}个</p>
         </div>
         <div class="item line">
           <el-button
@@ -22,7 +35,7 @@
           </el-button>
           -用例总数
           <div style="flex: 2"></div>
-          <p style="color: #23c6c8">242个</p>
+          <p style="color: #23c6c8">{{ caseCnt }}个</p>
         </div>
         <div class="item line">
           <el-button
@@ -33,7 +46,7 @@
           </el-button>
           -测试总时长
           <div style="flex: 2"></div>
-          <p style="color: #19b394">4137719H</p>
+          <p style="color: #19b394">{{ testTimeDuration }}H</p>
         </div>
         <div class="item line">
           <el-button
@@ -44,7 +57,7 @@
           </el-button>
           -测试总样本
           <div style="flex: 2"></div>
-          <p style="color: #67C23A">42098个</p>
+          <p style="color: #67C23A">{{ testDutCnt }}个</p>
         </div>
         <div class="item line">
           <el-button
@@ -55,7 +68,9 @@
           </el-button>
           -资源数
           <div style="flex: 2"></div>
-          <p style="color: #f8ac59">手机: 163台 | 仪表: 47台</p>
+          <p style="color: #f8ac59">
+            手机: {{ pcCnt }}台 | 仪表: {{ instrumentCnt }}台
+          </p>
         </div>
       </div>
     </div>
@@ -70,7 +85,15 @@ export default Vue.extend({
   name: '',
   components: {},
   data() {
-    return {}
+    return {
+      percentage: 0,
+      projectCnt: 0,
+      caseCnt: 0,
+      testTimeDuration: 0,
+      testDutCnt: 0,
+      pcCnt: 0,
+      instrumentCnt: 0,
+    }
   },
   computed: {
     ...mapState('user', {}),
@@ -78,39 +101,83 @@ export default Vue.extend({
   },
   filters: {},
   methods: {},
-  async mounted() {},
+
+  async mounted() {
+    this.percentage = 0
+    let baseURL = this.$cfg.debug
+      ? 'http://10.6.4.134:8888/v1/thirdAccess'
+      : 'https://ucloudcenter.unisoc.com/v1/thirdAccess'
+
+    let doc: any = {}
+    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-projects`)
+    this.projectCnt = doc.data
+    this.percentage = 10
+
+    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-cases`)
+    this.caseCnt = doc.data
+    this.percentage = 30
+
+    doc = await this.$ax.ctx.get(`${baseURL}/display/get–test-times`)
+    this.testTimeDuration = doc.data
+    this.percentage = 50
+
+    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-duts`)
+    this.testDutCnt = doc.data
+    this.percentage = 70
+
+    doc = await this.$ax.ctx.get(
+      `${baseURL}/display/get–number-resources?resourceType=0`
+    )
+    this.pcCnt = doc.data
+    this.percentage = 90
+
+    doc = await this.$ax.ctx.get(
+      `${baseURL}/display/get–number-resources?resourceType=1`
+    )
+    this.instrumentCnt = doc.data
+    this.percentage = 100
+  },
 })
 </script>
 
-<style lang="less" scoped>
-.app {
+<style lang="less">
+.home-summary {
   box-sizing: border-box;
   color: #a9abab;
   font-size: 16px;
-}
-.box {
-  box-sizing: border-box;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  width: 100%;
-  padding: 15px;
-}
-.line {
-  width: 100%;
-  height: 100%;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  align-content: center;
-}
-.item {
-  border-bottom: 1px dashed rgba(0, 0, 0, 0.11);
-  padding: 0px 0px;
-  p {
-    font-size: 18px;
-    font-weight: bold;
-    margin: 10px;
+  width: 40%;
+  .box {
+    box-sizing: border-box;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    padding: 0px;
+    width: 100%;
+    height: 400px;
+  }
+  .line {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+  }
+  .item {
+    border-bottom: 1px dashed rgba(0, 0, 0, 0.11);
+    padding: 0px 0px;
+    p {
+      font-size: 18px;
+      font-weight: bold;
+      margin: 10px;
+    }
+  }
+
+  .el-progress-bar__outer {
+    border-radius: 1px !important;
+  }
+  .el-progress-bar__inner {
+    border-radius: 1px !important;
   }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="appx">
+  <div class="home-project">
     <div class="box">
       <div ref="chart" :style="{ width: '100%', height: '100%' }"></div>
     </div>
@@ -141,19 +141,18 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-.appx {
+.home-project {
   box-sizing: border-box;
   margin: 0 0 0 0px;
   padding: 0 0 0 10px;
-  width: 50%;
-}
-
-.box {
-  box-sizing: border-box;
-  width: 100%;
-  height: 400px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-  padding: 20px 15px 0 15px;
+  width: 60%;
+  .box {
+    box-sizing: border-box;
+    width: 100%;
+    height: 400px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+    padding: 20px 15px 0 15px;
+  }
 }
 </style>
