@@ -136,7 +136,9 @@ export default Vue.extend({
             top: 30,
             // bottom: 0,
           },
-          tooltip: {},
+          tooltip: {
+            extraCssText: 'z-index: 0',
+          },
           calculable: true,
           grid: {
             top: 60,
@@ -278,17 +280,18 @@ export default Vue.extend({
   margin: 0 0 0 0px;
   padding: 0 0 0 0px;
   width: 100%;
+  height: 100%;
 
   .box {
     box-sizing: border-box;
     width: 100%;
-
+    height: 100%;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
     .chart {
       width: 100%;
-      height: 400px;
+      height: 90%;
       padding: 0px 15px 0 15px;
       font-weight: 200;
       z-index: 0;

@@ -1,7 +1,30 @@
 <template>
   <div class="home-project">
+    <div></div>
     <div class="box">
-      <div ref="chart" :style="{ width: '100%', height: '100%' }"></div>
+      <el-progress
+        color="#2a2a2acc"
+        :text-inside="true"
+        :show-text="false"
+        :stroke-width="5"
+        :percentage="percentage"
+        status="success"
+      ></el-progress>
+      <div class="float-controll-bar">
+        <span
+          style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px;"
+        >
+          项目统计
+        </span>
+        zzz
+      </div>
+      <div class="chart">
+        <div ref="chart" :style="{ width: '100%', height: '100%' }">
+          <div style="text-align: center; line-height: 400px;">
+            等待数据加载...
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -10,10 +33,10 @@
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
 import * as echarts from 'echarts'
+import { Message } from 'element-ui'
 
 interface IData {
   chart: any
-  opts: echarts.EChartsOption
 }
 
 export default Vue.extend({
@@ -22,137 +45,265 @@ export default Vue.extend({
   data(): IData {
     return {
       chart: null,
-      opts: {
-        title: {
-          text: '项目统计',
-          subtext: '纯属虚构',
-        },
-        tooltip: {
-          trigger: 'axis',
-        },
-        legend: {
-          data: ['SC9832', 'ROC5G'],
-        },
-        toolbox: {
-          show: true,
-          feature: {
-            dataView: { show: true, readOnly: false },
-            magicType: { show: true, type: ['line', 'bar'] },
-            restore: { show: true },
-            saveAsImage: { show: true },
-          },
-        },
-        calculable: true,
-        xAxis: [
-          {
-            type: 'category',
-            data: [
-              '1月',
-              '2月',
-              '3月',
-              '4月',
-              '5月',
-              '6月',
-              '7月',
-              '8月',
-              '9月',
-              '10月',
-              '11月',
-              '12月',
-            ],
-          },
-        ],
-        yAxis: [
-          {
-            type: 'value',
-          },
-        ],
-        series: [
-          {
-            name: 'SC9832',
-            type: 'bar',
-            data: [
-              2.0,
-              4.9,
-              7.0,
-              23.2,
-              25.6,
-              76.7,
-              135.6,
-              162.2,
-              32.6,
-              20.0,
-              6.4,
-              3.3,
-            ],
-            markPoint: {
-              data: [
-                { type: 'max', name: '最大值' },
-                { type: 'min', name: '最小值' },
-              ],
-            },
-            markLine: {
-              data: [{ type: 'average', name: '平均值' }],
-            },
-          },
-          {
-            name: 'ROC5G',
-            type: 'bar',
-            data: [
-              2.6,
-              5.9,
-              9.0,
-              26.4,
-              28.7,
-              70.7,
-              175.6,
-              182.2,
-              48.7,
-              18.8,
-              6.0,
-              2.3,
-            ],
-            markPoint: {
-              data: [
-                { name: '年最高', value: 182.2, xAxis: 7, yAxis: 183 },
-                { name: '年最低', value: 2.3, xAxis: 11, yAxis: 3 },
-              ],
-            },
-            markLine: {
-              data: [{ type: 'average', name: '平均值' }],
-            },
-          },
-        ],
-      },
     }
   },
   computed: {
     ...mapState('user', {}),
-    ...mapGetters('user', ['routes']),
+    ...mapState('team', {
+      path: (state: any) => {
+        return state.path
+      },
+      paths: (state: any) => {
+        let lst: Array<string> = state.path
+          .split('/')
+          .filter((item: string) => {
+            return item != ''
+          })
+        return lst
+      },
+      total: (state: any) => {
+        return state.total
+      },
+      progress: (state: any) => {
+        return state.progress
+      },
+      percentage: (state: any) => {
+        return (state.progress * 100) / state.total
+      },
+      doc: (state: any) => {
+        return state.doc
+      },
+    }),
+    // ...mapGetters({ doc: 'team/doc' }),
   },
   filters: {},
-  methods: {},
+  methods: {
+    drawLinebar() {
+      let that = this
+      let yDatas: any = []
+      let sProductDatas: any = []
+      let sCaseDatas: any = []
+      let sDutDatas: any = []
+      let sRunTestDatas: any = []
+      let sTestTimeDatas: any = []
+      this.doc.forEach((item: any) => {
+        yDatas.push(item.name)
+        sProductDatas.push(item.projectsNumber)
+        sCaseDatas.push(item.casesNumver)
+        sDutDatas.push(item.dutNumber)
+        sRunTestDatas.push(item.runTestNumbers)
+        sTestTimeDatas.push(item.testTimes)
+      })
+
+      let opts = {
+        baseOption: {
+          timeline: {
+            axisType: 'category',
+            // realtime: false,
+            // loop: false,
+            autoPlay: true,
+            // currentIndex: 2,
+            playInterval: 3000,
+            // controlStyle: {
+            //     position: 'left'
+            // },
+            data: [
+              '项目总数',
+              'case总数',
+              '资源总数',
+              { value: '测试数量', symbol: 'diamond', symbolSize: 16 },
+              '测试时长',
+            ],
+            label: {
+              formatter: (s: any) => {
+                return s
+              },
+            },
+          },
+          title: {
+            // subtext: '数据来自云测',
+            textStyle: {
+              fontSize: 15,
+            },
+            left: 0,
+            top: 30,
+            // bottom: 0,
+          },
+          tooltip: {
+            extraCssText: 'z-index: 0',
+          },
+          calculable: true,
+          grid: {
+            top: 60,
+            bottom: 60,
+            x: 200,
+            x2: 100,
+            y: 0,
+            y2: 0,
+            tooltip: {
+              trigger: 'axis',
+              axisPointer: {
+                type: 'shadow',
+                label: {
+                  show: true,
+                  formatter: function(params: any) {
+                    return params.value.replace('\n', '')
+                  },
+                },
+              },
+            },
+          },
+          xAxis: [
+            {
+              type: 'value',
+              axisLabel: {
+                formatter: '{value}',
+              },
+            },
+          ],
+          yAxis: [
+            {
+              type: 'category',
+              axisLabel: { interval: 0 },
+              data: yDatas,
+              splitLine: { show: false },
+            },
+          ],
+        },
+        options: [
+          {
+            title: { text: '项目总数(个)' },
+            series: [
+              {
+                name: '项目总数',
+                type: 'bar',
+                data: sProductDatas,
+                label: {
+                  show: true,
+                  position: 'right',
+                  margin: 10,
+                },
+              },
+            ],
+          },
+          {
+            title: { text: 'case总数(个)' },
+            series: [
+              {
+                name: 'case总数',
+                type: 'bar',
+                data: sCaseDatas,
+              },
+            ],
+          },
+          {
+            title: { text: '资源总数(台)' },
+            series: [
+              {
+                name: '资源总数',
+                type: 'bar',
+                data: sDutDatas,
+              },
+            ],
+          },
+          {
+            title: { text: '测试数量(个)' },
+            series: [
+              {
+                name: '测试数量',
+                type: 'bar',
+                data: sRunTestDatas,
+              },
+            ],
+          },
+          {
+            title: { text: '测试时长(H)' },
+            series: [
+              {
+                name: '测试时长',
+                type: 'bar',
+                data: sTestTimeDatas,
+              },
+            ],
+          },
+        ],
+      }
+      this.chart.setOption(opts)
+      this.chart.on('click', async (item: any) => {
+        // console.log(item)
+        if (that.total != that.progress || !item.seriesId) {
+          return
+        }
+        if (that.paths.length >= 2) {
+          Message({
+            message: '最小支持到三级部门',
+            type: 'warning',
+            duration: 3 * 1000,
+          })
+          return
+        }
+        await that.$store.dispatch('team/jumpToPath', {
+          path: `${that.path}/${item.name}`,
+        })
+        that.drawLinebar()
+      })
+      window.onresize = this.chart.resize
+    },
+    async onPathClick(event: MouseEvent, item: any) {
+      console.log(item)
+      if (item != 'UNISOC' || this.total != this.progress) {
+        return
+      }
+      await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
+      this.drawLinebar()
+    },
+  },
+  async created() {},
   async mounted() {
+    await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
     this.chart = echarts.init(this.$refs.chart as HTMLElement)
-    //@ts-ignore
-    this.chart.setOption(this.opts)
+    // this.drawLinebar()
   },
 })
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
 .home-project {
   box-sizing: border-box;
-  margin: 0 0 0 0px;
-  padding: 0 0 0 10px;
+  margin: 0 0px 0 10px;
+  padding: 0 0 0 0px;
   width: 60%;
+  height: 100%;
+
   .box {
     box-sizing: border-box;
     width: 100%;
-    height: 400px;
+    height: 100%;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-    padding: 20px 15px 0 15px;
+
+    .chart {
+      width: 100%;
+      height: 90%;
+      padding: 0px 15px 0 15px;
+      font-weight: 200;
+      z-index: 0;
+      canvas {
+        top: -5px !important;
+        z-index: 0 !important;
+      }
+    }
+  }
+
+  .float-controll-bar {
+    padding: 15px 15px 0 18px;
+    z-index: 100;
+  }
+  .el-progress-bar__outer {
+    border-radius: 1px !important;
+  }
+  .el-progress-bar__inner {
+    border-radius: 1px !important;
   }
 }
 </style>

@@ -1,8 +1,4 @@
-const base_url = $cfg.debug
-  ? 'http://10.6.4.134:7701/v1'
-  : 'https://ucloudcenter.unisoc.com/v1'
-
-const white_list = [
+const white_list: Array<string> = [
   '产品工程部',
   '基础软件技术资源部',
   '多媒体集成技术资源部',
@@ -43,7 +39,7 @@ const team = {
       }
       state.path = path
       state.total = 1
-      state.progress = 0
+      state.progress = 1
       let doc: any = []
       let lst: Array<string> = path.split('/').filter((item: string) => {
         return item != ''
@@ -52,16 +48,19 @@ const team = {
       switch (len) {
         case 1: {
           let res = await $ax.ctx.get(
-            `${base_url}/thirdAccess/depl/get-depl2Info`
+            `${$cfg.url.ucloud}/v1/thirdAccess/depl/get-depl2Info`
           )
           let teamL2s: Array<any> = res.data
           state.total = teamL2s.length
           for (let [idx, teamL2] of teamL2s.entries()) {
-            if (!teamL2 || !white_list.includes(teamL2)) {
+            if (
+              !teamL2 ||
+              (white_list.length != 0 && !white_list.includes(teamL2))
+            ) {
               continue
             }
             res = await $ax.ctx.get(
-              `${base_url}/rsmanager/display/get–info-by-depid?depid2=${teamL2}`
+              `${$cfg.url.ucloud}/v1/rsmanager/display/get–info-by-depid?depid2=${teamL2}`
             )
             if (!checkValidRes(res)) {
               continue
@@ -76,7 +75,7 @@ const team = {
         case 2: {
           let teamL2 = lst[1]
           let res = await $ax.ctx.get(
-            `${base_url}/thirdAccess/depl/get-depl3Info?depl2=${teamL2}`
+            `${$cfg.url.ucloud}/v1/thirdAccess/depl/get-depl3Info?depl2=${teamL2}`
           )
           let teamL3s: Array<any> = res.data
           state.total = teamL3s.length
@@ -85,7 +84,7 @@ const team = {
               continue
             }
             res = await $ax.ctx.get(
-              `${base_url}/rsmanager/display/get–info-by-depid?depid2=${teamL2}&depid3=${teamL3}`
+              `${$cfg.url.ucloud}/v1/rsmanager/display/get–info-by-depid?depid2=${teamL2}&depid3=${teamL3}`
             )
             // if (!checkValidRes(res)) {
             //   continue

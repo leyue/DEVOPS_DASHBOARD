@@ -1,7 +1,8 @@
-let d0 = '/*'
+let cfg = {
+  debug: false,
+  url: {
+    name: this.debug ? 1 : 0,
+  },
+}
 
-let lst = d0.split('/').filter((item) => {
-  return item != ''
-})
-
-console.log(lst.length, lst)
+console.log(cfg)

@@ -103,36 +103,40 @@ export default Vue.extend({
   methods: {},
 
   async mounted() {
-    this.percentage = 0
-    let baseURL = this.$cfg.debug
-      ? 'http://10.6.4.134:8888/v1/thirdAccess'
-      : 'https://ucloudcenter.unisoc.com/v1/thirdAccess'
-
+    this.percentage = 5
     let doc: any = {}
-    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-projects`)
+    doc = await this.$ax.ctx.get(
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-projects`
+    )
     this.projectCnt = doc.data
     this.percentage = 10
 
-    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-cases`)
+    doc = await this.$ax.ctx.get(
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-cases`
+    )
     this.caseCnt = doc.data
     this.percentage = 30
 
-    doc = await this.$ax.ctx.get(`${baseURL}/display/get–test-times`)
+    doc = await this.$ax.ctx.get(
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–test-times`
+    )
     this.testTimeDuration = doc.data
     this.percentage = 50
 
-    doc = await this.$ax.ctx.get(`${baseURL}/display/get–number-duts`)
+    doc = await this.$ax.ctx.get(
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-duts`
+    )
     this.testDutCnt = doc.data
     this.percentage = 70
 
     doc = await this.$ax.ctx.get(
-      `${baseURL}/display/get–number-resources?resourceType=0`
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-resources?resourceType=0`
     )
     this.pcCnt = doc.data
     this.percentage = 90
 
     doc = await this.$ax.ctx.get(
-      `${baseURL}/display/get–number-resources?resourceType=1`
+      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-resources?resourceType=1`
     )
     this.instrumentCnt = doc.data
     this.percentage = 100
@@ -146,13 +150,14 @@ export default Vue.extend({
   color: #a9abab;
   font-size: 16px;
   width: 40%;
+  height: 100%;
   .box {
     box-sizing: border-box;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
     padding: 0px;
     width: 100%;
-    height: 400px;
+    height: 100%;
   }
   .line {
     width: 100%;

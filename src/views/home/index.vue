@@ -2,11 +2,19 @@
   <div class="app">
     <div class="header">云测主页</div>
     <div class="content">
-      <div class="line" style="margin-top: 0px; margin-bottom: 5px;">
+      <div
+        class="line"
+        :style="{
+          'margin-bottom': '10px',
+          height: '350px',
+        }"
+      >
         <com-summary></com-summary>
         <com-project></com-project>
       </div>
-      <com-team></com-team>
+      <div :style="{ height: `${height}px` }">
+        <com-team></com-team>
+      </div>
     </div>
   </div>
 </template>
@@ -22,7 +30,9 @@ export default Vue.extend({
   name: '',
   components: { comSummary, comTeam, comProject },
   data() {
-    return {}
+    return {
+      height: 450,
+    }
   },
   computed: {
     ...mapState('user', {}),
@@ -31,7 +41,9 @@ export default Vue.extend({
   filters: {},
   methods: {},
   async mounted() {
-    //
+    // vue 如果子组件使用了 window.onresize 父组件window.onresize会不生效
+    window.addEventListener('resize', () => {}, false)
+    console.log(this.height)
   },
 })
 </script>
@@ -40,7 +52,7 @@ export default Vue.extend({
 .app {
   box-sizing: border-box;
   margin: 0px;
-  padding: 0px;
+  padding: 0px 0 0px 0;
 }
 .header {
   width: 100%;
@@ -52,9 +64,10 @@ export default Vue.extend({
   font-size: 20px;
   position: fixed;
   top: 0px;
+  z-index: 100;
 }
 .content {
-  margin: 65px 56px 0 15px;
+  margin: 65px 56px 0px 15px;
 }
 .line {
   width: 100%;
