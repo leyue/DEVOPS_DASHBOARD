@@ -39,7 +39,7 @@ const team = {
       }
       state.path = path
       state.total = 1
-      state.progress = 1
+      state.progress = 0
       let doc: any = []
       let lst: Array<string> = path.split('/').filter((item: string) => {
         return item != ''

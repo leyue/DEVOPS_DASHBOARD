@@ -1,8 +1,5 @@
-let cfg = {
-  debug: false,
-  url: {
-    name: this.debug ? 1 : 0,
-  },
-}
-
-console.log(cfg)
+var lst = []
+var s1 = lst.join(',')
+var s2 = lst.join('-')
+console.log(1, s1)
+console.log(s2)

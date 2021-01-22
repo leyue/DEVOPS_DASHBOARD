@@ -78,22 +78,29 @@ export default Vue.extend({
       homePage: '/home',
       items: [
         {
-          tip: '点击进入视频主页',
-          icon: 'el-icon-video-camera',
+          tip: '点击进入云测',
+          icon: 'el-icon-cloudy',
+          enable: true,
+          selected: false,
+          path: '*',
+        },
+        {
+          tip: '点击进入视频展示',
+          icon: 'el-icon-picture',
           enable: true,
           selected: false,
           path: '/',
         },
         {
-          tip: '点击进入云测主页',
+          tip: '点击进入统计汇总',
           icon: 'el-icon-s-home',
           enable: true,
           selected: true,
           path: '/home',
         },
         {
-          tip: '点击进入全球场测展示',
-          icon: 'el-icon-picture',
+          tip: '点击进入全球场测',
+          icon: 'el-icon-location-outline',
           enable: true,
           selected: false,
           path: '/global',
@@ -134,7 +141,14 @@ export default Vue.extend({
   },
   methods: {
     onJump(doc: any) {
-      this.$router.push(doc.path)
+      switch (doc.path) {
+        case '*':
+          window.open('https://ucloudcenter.unisoc.com/')
+          break
+        default:
+          this.$router.push(doc.path)
+          break
+      }
     },
     onSplashChanged(val: boolean) {
       localStorage.setItem('setting-enable-splash', `${val}`)
@@ -175,7 +189,7 @@ export default Vue.extend({
   position: fixed;
   right: 5px;
   top: 200px;
-  height: 380px;
+  height: 450px;
   font-size: 14px;
 }
 

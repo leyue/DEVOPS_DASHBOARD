@@ -17,13 +17,15 @@
           团队统计
         </span>
         <el-link
-          style="font-size: 16px; font-weight: 600; color: #2a2a2acc"
+          style="font-size: 16px; padding-top: 0px; font-weight: 600; color: #2a2a2acc"
           type="info"
           v-for="(item, idx) in paths"
           @click="onPathClick($event, item)"
         >
-          {{ `${item} > ` }}
+          {{ formatPath(item, idx, paths) }}
         </el-link>
+        <div style="flex: 2"></div>
+        <div style="font-size: 12px;">点击矩形柱查看三级部门统计信息</div>
       </div>
       <div class="chart">
         <div ref="chart" :style="{ width: '100%', height: '100%' }">
@@ -85,6 +87,14 @@ export default Vue.extend({
   },
   filters: {},
   methods: {
+    formatPath(item: string, idx: number, paths: Array<string>) {
+      switch (idx) {
+        case 0:
+          return paths.length > 1 ? `${item}>` : item
+        case 1:
+          return `${item}`
+      }
+    },
     drawLinebar() {
       let that = this
       let yDatas: any = []
@@ -110,7 +120,7 @@ export default Vue.extend({
             // loop: false,
             autoPlay: true,
             // currentIndex: 2,
-            playInterval: 3000,
+            playInterval: 5000,
             // controlStyle: {
             //     position: 'left'
             // },
@@ -132,17 +142,29 @@ export default Vue.extend({
             textStyle: {
               fontSize: 15,
             },
-            left: 0,
-            top: 30,
+            left: -2,
+            top: 2,
             // bottom: 0,
           },
           tooltip: {
             extraCssText: 'z-index: 0',
           },
+          visualMap: {
+            orient: 'vertical',
+            right: 0,
+            text: ['H', 'L'],
+            dimension: 0,
+            itemWidth: 5,
+            itemHeight: 60,
+            inRange: {
+              color: ['#7f99cc', '#1b4fb6'],
+            },
+          },
           calculable: true,
+          padding: [0, 0, 0, 0],
           grid: {
-            top: 60,
-            bottom: 60,
+            top: 25,
+            bottom: 70,
             x: 200,
             x2: 100,
             y: 0,
@@ -236,25 +258,14 @@ export default Vue.extend({
         ],
       }
       this.chart.setOption(opts)
-      this.chart.on('click', async (item: any) => {
-        // console.log(item)
-        if (that.total != that.progress || !item.seriesId) {
-          return
-        }
-        if (that.paths.length >= 2) {
-          Message({
-            message: '最小支持到三级部门',
-            type: 'warning',
-            duration: 3 * 1000,
-          })
-          return
-        }
-        await that.$store.dispatch('team/jumpToPath', {
-          path: `${that.path}/${item.name}`,
-        })
-        that.drawLinebar()
-      })
-      window.onresize = this.chart.resize
+      // window.onresize = this.chart.resize
+      window.addEventListener(
+        'resize',
+        () => {
+          this.chart.resize()
+        },
+        false
+      )
     },
     async onPathClick(event: MouseEvent, item: any) {
       console.log(item)
@@ -268,44 +279,75 @@ export default Vue.extend({
   async created() {},
   async mounted() {
     await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
+    let that = this
     this.chart = echarts.init(this.$refs.chart as HTMLElement)
+    this.chart.on('click', async (item: any) => {
+      console.log(item)
+      if (that.total != that.progress || !item.seriesId) {
+        return
+      }
+      if (that.paths.length >= 2) {
+        Message({
+          message: '最小支持到三级部门',
+          type: 'warning',
+          duration: 3 * 1000,
+        })
+        return
+      }
+      await that.$store.dispatch('team/jumpToPath', {
+        path: `${that.path}/${item.name}`,
+      })
+      that.drawLinebar()
+    })
     this.drawLinebar()
   },
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .home-team {
   box-sizing: border-box;
   margin: 0 0 0 0px;
   padding: 0 0 0 0px;
+  height: 100%;
+}
+.box {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
-  .box {
-    box-sizing: border-box;
+  .chart {
     width: 100%;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-
-    .chart {
-      width: 100%;
-      height: 90%;
-      padding: 0px 15px 0 15px;
-      font-weight: 200;
-      z-index: 0;
-      canvas {
-        top: -5px !important;
-        z-index: 0 !important;
-      }
+    height: 85%;
+    padding: 0px 15px 0px 15px;
+    font-weight: 200;
+    z-index: 0;
+    canvas {
+      top: -5px !important;
+      z-index: 0 !important;
     }
   }
+}
+.float-controll-bar {
+  box-sizing: border-box;
+  padding: 10px 10px 0 18px;
+  width: 100%;
+  z-index: 100;
+  display: inline-flex;
+  flex-direction: row;
+  // 主轴对其方式
+  justify-content: flex-start;
+  // 交叉轴对其方式
+  align-items: center;
+  // 多根轴线对其方式
+  align-content: center;
+}
+</style>
 
-  .float-controll-bar {
-    padding: 15px 15px 0 18px;
-    z-index: 100;
-  }
+<style lang="less">
+.home-team {
   .el-progress-bar__outer {
     border-radius: 1px !important;
   }

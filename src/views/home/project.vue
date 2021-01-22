@@ -10,13 +10,30 @@
         :percentage="percentage"
         status="success"
       ></el-progress>
-      <div class="float-controll-bar">
+      <div class="controll-bar">
         <span
           style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px;"
         >
           项目统计
         </span>
-        zzz
+        <div style="flex: 2"></div>
+        <!-- <product-picker class="content"></product-picker> -->
+        <el-popover
+          placement="left-start"
+          :offset="300"
+          trigger="hover"
+          content="..."
+        >
+          <product-picker class="content"></product-picker>
+          <el-button
+            slot="reference"
+            size="mini"
+            type="info"
+            circle
+            icon="el-icon-more"
+            @click="onProductSelectClick"
+          ></el-button>
+        </el-popover>
       </div>
       <div class="chart">
         <div ref="chart" :style="{ width: '100%', height: '100%' }">
@@ -34,6 +51,7 @@ import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
 import * as echarts from 'echarts'
 import { Message } from 'element-ui'
+import productPicker from './product.picker.vue'
 
 interface IData {
   chart: any
@@ -41,7 +59,7 @@ interface IData {
 
 export default Vue.extend({
   name: '',
-  components: {},
+  components: { productPicker },
   data(): IData {
     return {
       chart: null,
@@ -49,17 +67,9 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('user', {}),
-    ...mapState('team', {
+    ...mapState('homeProduct', {
       path: (state: any) => {
         return state.path
-      },
-      paths: (state: any) => {
-        let lst: Array<string> = state.path
-          .split('/')
-          .filter((item: string) => {
-            return item != ''
-          })
-        return lst
       },
       total: (state: any) => {
         return state.total
@@ -70,29 +80,34 @@ export default Vue.extend({
       percentage: (state: any) => {
         return (state.progress * 100) / state.total
       },
-      doc: (state: any) => {
-        return state.doc
-      },
     }),
-    // ...mapGetters({ doc: 'team/doc' }),
+    ...mapGetters({ doc: 'homeProduct/doc' }),
+  },
+  watch: {
+    doc(newV, oldV) {
+      if (!this.chart) {
+        return
+      }
+      this.drawLinebar()
+    },
   },
   filters: {},
   methods: {
+    onProductSelectClick() {},
     drawLinebar() {
       let that = this
       let yDatas: any = []
-      let sProductDatas: any = []
-      let sCaseDatas: any = []
-      let sDutDatas: any = []
-      let sRunTestDatas: any = []
+      let sTestCountDatas: any = []
       let sTestTimeDatas: any = []
+      let sCaseCountDatas: any = []
+      let sRunTestDatas: any = []
+
       this.doc.forEach((item: any) => {
-        yDatas.push(item.name)
-        sProductDatas.push(item.projectsNumber)
-        sCaseDatas.push(item.casesNumver)
-        sDutDatas.push(item.dutNumber)
-        sRunTestDatas.push(item.runTestNumbers)
+        yDatas.push(item.test_project)
+        sTestCountDatas.push(item.testNumber)
         sTestTimeDatas.push(item.testTimes)
+        sCaseCountDatas.push(item.testCaseNumver)
+        sRunTestDatas.push(item.runningTestNumber)
       })
 
       let opts = {
@@ -103,16 +118,15 @@ export default Vue.extend({
             // loop: false,
             autoPlay: true,
             // currentIndex: 2,
-            playInterval: 3000,
-            // controlStyle: {
-            //     position: 'left'
-            // },
+            playInterval: 5000,
+            controlStyle: {
+              position: 'left',
+            },
             data: [
-              '项目总数',
-              'case总数',
-              '资源总数',
-              { value: '测试数量', symbol: 'diamond', symbolSize: 16 },
+              '总测试样本数',
               '测试时长',
+              { value: '总样本数', symbol: 'diamond', symbolSize: 16 },
+              '当前任务数',
             ],
             label: {
               formatter: (s: any) => {
@@ -125,21 +139,34 @@ export default Vue.extend({
             textStyle: {
               fontSize: 15,
             },
-            left: 0,
-            top: 30,
+            left: -2,
+            top: 2,
             // bottom: 0,
           },
           tooltip: {
-            extraCssText: 'z-index: 0',
+            extraCssText: 'z-index: 10',
+          },
+          visualMap: {
+            orient: 'vertical',
+            right: 30,
+            text: ['H', 'L'],
+            dimension: 0,
+            itemWidth: 5,
+            itemHeight: 60,
+            inRange: {
+              color: ['#7f99cc', '#1b4fb6'],
+            },
           },
           calculable: true,
+          padding: [0, 0, 0, 0],
           grid: {
-            top: 60,
-            bottom: 60,
+            top: 25,
+            bottom: 70,
             x: 200,
             x2: 100,
             y: 0,
             y2: 0,
+            containLabel: false,
             tooltip: {
               trigger: 'axis',
               axisPointer: {
@@ -172,47 +199,17 @@ export default Vue.extend({
         },
         options: [
           {
-            title: { text: '项目总数(个)' },
+            title: { text: '总测试样本数(个)' },
             series: [
               {
-                name: '项目总数',
+                name: '总测试样本数',
                 type: 'bar',
-                data: sProductDatas,
+                data: sTestCountDatas,
                 label: {
                   show: true,
                   position: 'right',
                   margin: 10,
                 },
-              },
-            ],
-          },
-          {
-            title: { text: 'case总数(个)' },
-            series: [
-              {
-                name: 'case总数',
-                type: 'bar',
-                data: sCaseDatas,
-              },
-            ],
-          },
-          {
-            title: { text: '资源总数(台)' },
-            series: [
-              {
-                name: '资源总数',
-                type: 'bar',
-                data: sDutDatas,
-              },
-            ],
-          },
-          {
-            title: { text: '测试数量(个)' },
-            series: [
-              {
-                name: '测试数量',
-                type: 'bar',
-                data: sRunTestDatas,
               },
             ],
           },
@@ -226,84 +223,107 @@ export default Vue.extend({
               },
             ],
           },
+          {
+            title: { text: '总样本数(个)' },
+            series: [
+              {
+                name: '资源总数',
+                type: 'bar',
+                data: sCaseCountDatas,
+              },
+            ],
+          },
+          {
+            title: { text: '当前任务数(个)' },
+            series: [
+              {
+                name: '当前任务数',
+                type: 'bar',
+                data: sRunTestDatas,
+              },
+            ],
+          },
         ],
       }
       this.chart.setOption(opts)
-      this.chart.on('click', async (item: any) => {
-        // console.log(item)
-        if (that.total != that.progress || !item.seriesId) {
-          return
-        }
-        if (that.paths.length >= 2) {
-          Message({
-            message: '最小支持到三级部门',
-            type: 'warning',
-            duration: 3 * 1000,
-          })
-          return
-        }
-        await that.$store.dispatch('team/jumpToPath', {
-          path: `${that.path}/${item.name}`,
-        })
-        that.drawLinebar()
-      })
-      window.onresize = this.chart.resize
-    },
-    async onPathClick(event: MouseEvent, item: any) {
-      console.log(item)
-      if (item != 'UNISOC' || this.total != this.progress) {
-        return
-      }
-      await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
-      this.drawLinebar()
+      // window.onresize = this.chart.resize
+      window.addEventListener(
+        'resize',
+        () => {
+          this.chart.resize()
+        },
+        false
+      )
     },
   },
   async created() {},
   async mounted() {
-    await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
+    await this.$store.dispatch('homeProduct/loadProducts')
     this.chart = echarts.init(this.$refs.chart as HTMLElement)
-    // this.drawLinebar()
+    this.drawLinebar()
   },
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .home-project {
   box-sizing: border-box;
-  margin: 0 0px 0 10px;
+  margin: 0 0px 0 0px;
   padding: 0 0 0 0px;
-  width: 60%;
+  width: 100%;
   height: 100%;
+}
+.box {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
-  .box {
-    box-sizing: border-box;
+  .chart {
     width: 100%;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
-
-    .chart {
-      width: 100%;
-      height: 90%;
-      padding: 0px 15px 0 15px;
-      font-weight: 200;
-      z-index: 0;
-      canvas {
-        top: -5px !important;
-        z-index: 0 !important;
-      }
+    height: 85%;
+    padding: 0px 15px 0 15px;
+    font-weight: 200;
+    z-index: 0;
+    canvas {
+      top: 0px !important;
+      z-index: 0 !important;
     }
   }
+}
+.controll-bar {
+  box-sizing: border-box;
+  padding: 10px 10px 0 18px;
+  width: 100%;
+  z-index: 100;
+  display: inline-flex;
+  flex-direction: row;
+  // 主轴对其方式
+  justify-content: flex-start;
+  // 交叉轴对其方式
+  align-items: center;
+  // 多根轴线对其方式
+  align-content: center;
+}
+</style>
 
-  .float-controll-bar {
-    padding: 15px 15px 0 18px;
-    z-index: 100;
-  }
+<style lang="less">
+.home-project {
   .el-progress-bar__outer {
     border-radius: 1px !important;
   }
   .el-progress-bar__inner {
     border-radius: 1px !important;
+  }
+  .el-popover {
+    top: 55px !important;
+    &.el-popper {
+      top: 55px !important;
+    }
+  }
+  canvas {
+    top: 0px !important;
   }
 }
 </style>

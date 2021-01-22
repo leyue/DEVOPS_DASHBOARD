@@ -149,7 +149,7 @@ export default Vue.extend({
   box-sizing: border-box;
   color: #a9abab;
   font-size: 16px;
-  width: 40%;
+  width: 350px;
   height: 100%;
   .box {
     box-sizing: border-box;

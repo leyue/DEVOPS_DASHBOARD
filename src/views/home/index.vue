@@ -6,14 +6,15 @@
         class="line"
         :style="{
           'margin-bottom': '10px',
-          height: '350px',
+          height: '400px',
         }"
       >
         <com-summary></com-summary>
-        <com-project></com-project>
+        <div style="width: 10px;"></div>
+        <com-team style="flex: 2;"></com-team>
       </div>
-      <div :style="{ height: `${height}px` }">
-        <com-team></com-team>
+      <div style="height: 400px">
+        <com-project></com-project>
       </div>
     </div>
   </div>
@@ -31,7 +32,7 @@ export default Vue.extend({
   components: { comSummary, comTeam, comProject },
   data() {
     return {
-      height: 450,
+      height: 500,
     }
   },
   computed: {
@@ -43,7 +44,6 @@ export default Vue.extend({
   async mounted() {
     // vue 如果子组件使用了 window.onresize 父组件window.onresize会不生效
     window.addEventListener('resize', () => {}, false)
-    console.log(this.height)
   },
 })
 </script>
