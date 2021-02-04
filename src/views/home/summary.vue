@@ -9,17 +9,12 @@
         :percentage="percentage"
         status="success"
       ></el-progress>
-      <div style="padding: 15px;">
-        <div
-          style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-bottom: 20px;"
-        >
+      <div style="padding: 15px">
+        <div style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-bottom: 20px">
           信息汇总
         </div>
         <div class="item line">
-          <el-button
-            size="mini"
-            style="width: 28px; background-color: #1b83c6; color: #fff;"
-            circle
+          <el-button size="mini" style="width: 28px; background-color: #1b83c6; color: #fff" circle
             >1
           </el-button>
           -项目总数
@@ -27,10 +22,7 @@
           <p style="color: #1b83c6">{{ projectCnt }}个</p>
         </div>
         <div class="item line">
-          <el-button
-            size="mini"
-            style="width: 28px; background-color: #23c6c8; color: #fff;"
-            circle
+          <el-button size="mini" style="width: 28px; background-color: #23c6c8; color: #fff" circle
             >2
           </el-button>
           -用例总数
@@ -38,10 +30,7 @@
           <p style="color: #23c6c8">{{ caseCnt }}个</p>
         </div>
         <div class="item line">
-          <el-button
-            size="mini"
-            style="width: 28px; background-color: #19b394; color: #fff;"
-            circle
+          <el-button size="mini" style="width: 28px; background-color: #19b394; color: #fff" circle
             >3
           </el-button>
           -测试总时长
@@ -49,28 +38,20 @@
           <p style="color: #19b394">{{ testTimeDuration }}H</p>
         </div>
         <div class="item line">
-          <el-button
-            size="mini"
-            style="width: 28px; background-color: #67C23A; color: #fff;"
-            circle
+          <el-button size="mini" style="width: 28px; background-color: #67c23a; color: #fff" circle
             >4
           </el-button>
           -测试总样本
           <div style="flex: 2"></div>
-          <p style="color: #67C23A">{{ testDutCnt }}个</p>
+          <p style="color: #67c23a">{{ testDutCnt }}个</p>
         </div>
         <div class="item line">
-          <el-button
-            size="mini"
-            style="width: 28px; background-color: #f8ac59; color: #fff;"
-            circle
+          <el-button size="mini" style="width: 28px; background-color: #f8ac59; color: #fff" circle
             >5
           </el-button>
           -资源数
           <div style="flex: 2"></div>
-          <p style="color: #f8ac59">
-            手机: {{ pcCnt }}台 | 仪表: {{ instrumentCnt }}台
-          </p>
+          <p style="color: #f8ac59">手机: {{ pcCnt }}台 | 仪表: {{ instrumentCnt }}台</p>
         </div>
       </div>
     </div>
@@ -111,21 +92,15 @@ export default Vue.extend({
     this.projectCnt = doc.data
     this.percentage = 10
 
-    doc = await this.$ax.ctx.get(
-      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-cases`
-    )
+    doc = await this.$ax.ctx.get(`${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-cases`)
     this.caseCnt = doc.data
     this.percentage = 30
 
-    doc = await this.$ax.ctx.get(
-      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–test-times`
-    )
+    doc = await this.$ax.ctx.get(`${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–test-times`)
     this.testTimeDuration = doc.data
     this.percentage = 50
 
-    doc = await this.$ax.ctx.get(
-      `${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-duts`
-    )
+    doc = await this.$ax.ctx.get(`${this.$cfg.url.ucloud}/v1/thirdAccess/display/get–number-duts`)
     this.testDutCnt = doc.data
     this.percentage = 70
 

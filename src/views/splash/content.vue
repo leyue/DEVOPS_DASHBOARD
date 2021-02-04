@@ -3,21 +3,26 @@
     <div class="app" :style="{ opacity }">
       <div class="logo">
         <img
-          style="margin-top: 30px; margin-left: 15px;width: 250px;  -webkit-font-smoothing: antialiased;"
+          style="
+            margin-top: 30px;
+            margin-left: 15px;
+            width: 250px;
+            -webkit-font-smoothing: antialiased;
+          "
           :src="scene.res.logo"
           alt=""
         />
       </div>
       <div class="float-controll-bar">
-        <div style="font-size: 28px; text-align: left;">
+        <div style="font-size: 28px; text-align: left">
           {{ scene.name }}
         </div>
-        <div style="text-align: left; width: 70%;">
+        <div style="text-align: left; width: 70%">
           {{ scene.res.text }}
         </div>
         <div
           class="button"
-          style="width: 200px; height: 40px;  line-height: 40px; margin-top: 5px;"
+          style="width: 200px; height: 40px; line-height: 40px; margin-top: 5px"
           @click="onShowDetail"
         >
           了解详情

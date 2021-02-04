@@ -1,48 +1,34 @@
 <template>
   <div class="app">
     <div class="content">
-      <div class=" line">
+      <div class="line">
         <i class="el-icon-s-unfold"></i>
-        <p
-          style="margin-left: 20px; min-width: 90px; font-weight: bold; font-size: 18px;"
-        >
+        <p style="margin-left: 20px; min-width: 90px; font-weight: bold; font-size: 18px">
           Devops CI
         </p>
-        <div style="margin-left: 75px; flex: 2; min-width: 150px; ">
+        <div style="margin-left: 75px; flex: 2; min-width: 150px">
           <el-autocomplete
             class="inline-input"
-            style="width: 100%;"
+            style="width: 100%"
             v-model="v0"
             :fetch-suggestions="onFetchSuggestion"
             placeholder="Enter a branch name."
             @select="onBranchSelect"
           >
-            <i
-              class="el-icon-close el-input__icon"
-              slot="suffix"
-              @click="onBranchClear"
-            >
-            </i>
+            <i class="el-icon-close el-input__icon" slot="suffix" @click="onBranchClear"> </i>
             <template slot-scope="{ item }">
               <div class="name">{{ item.name }}</div>
             </template>
           </el-autocomplete>
         </div>
-        <el-checkbox style="margin-left: 15px;">与我相关的</el-checkbox>
+        <el-checkbox style="margin-left: 15px">与我相关的</el-checkbox>
         <div>
-          <el-tooltip
-            class="item"
-            effect="dark"
-            content="Help"
-            placement="bottom-end"
-          >
-            <i class="el-icon-question" style="margin-left: 55px;"></i>
+          <el-tooltip class="item" effect="dark" content="Help" placement="bottom-end">
+            <i class="el-icon-question" style="margin-left: 55px"></i>
           </el-tooltip>
         </div>
-        <i class="el-icon-s-opportunity" style="margin-left: 15px;"></i>
-        <div style="margin-left: 40px; color: #68a3f0; font-size: 16px;">
-          登陆
-        </div>
+        <i class="el-icon-s-opportunity" style="margin-left: 15px"></i>
+        <div style="margin-left: 40px; color: #68a3f0; font-size: 16px">登陆</div>
       </div>
     </div>
   </div>
@@ -81,18 +67,13 @@ export default Vue.extend({
     onFetchSuggestion(queryString: string, cb: Function) {
       let restaurants: Array<any> = this.doc.row
       let results = restaurants.filter((item, idx, arry) => {
-        return (
-          item.name.toLowerCase().indexOf(queryString.trim().toLowerCase()) >= 0
-        )
+        return item.name.toLowerCase().indexOf(queryString.trim().toLowerCase()) >= 0
       })
       cb(results)
     },
     async onBranchSelect(val: any) {
       this.v0 = val.name
-      await this.$store.commit(
-        'branch/setCurrent',
-        this.$store.state.branch.current
-      )
+      await this.$store.commit('branch/setCurrent', this.$store.state.branch.current)
       await this.$store.dispatch('product/getDoc', this.v0)
       await this.$store.dispatch('node/getDoc', this.v0)
     },

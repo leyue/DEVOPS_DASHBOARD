@@ -21,11 +21,9 @@ const product = {
       }
       for (let [idx, srcItem] of srcDoc.product.entries()) {
         let name: string = srcItem.name
-        let item = doc.product.find(
-          (val: any, idx: number, arry: Array<any>) => {
-            return val.name == name
-          }
-        )
+        let item = doc.product.find((val: any, idx: number, arry: Array<any>) => {
+          return val.name == name
+        })
         if (!item) {
           doc.product.push({
             name,

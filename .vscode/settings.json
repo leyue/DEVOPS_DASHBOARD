@@ -1,0 +1,29 @@
+{
+  "vsicons.presets.nestjs": true,
+  "files.exclude": {
+    "node_modules": true,
+    "dist": false
+  },
+  "editor": {
+    "formatOnSave": true
+  },
+  // .js 格式化设置
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "printWidth": 100
+  },
+  // .vue 格式化设置 "octref.vetur"
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "vetur.validation.template": false,
+  "vetur.experimental.templateInterpolationService": false,
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "semi": false,
+      "singleQuote": true,
+      "printWidth": 100
+    }
+  }
+}

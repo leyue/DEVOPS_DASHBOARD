@@ -11,19 +11,12 @@
         status="success"
       ></el-progress>
       <div class="controll-bar">
-        <span
-          style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px;"
-        >
+        <span style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px">
           项目统计
         </span>
         <div style="flex: 2"></div>
         <!-- <product-picker class="content"></product-picker> -->
-        <el-popover
-          placement="left-start"
-          :offset="300"
-          trigger="hover"
-          content="..."
-        >
+        <el-popover placement="left-start" :offset="300" trigger="hover" content="...">
           <product-picker class="content"></product-picker>
           <el-button
             slot="reference"
@@ -37,9 +30,7 @@
       </div>
       <div class="chart">
         <div ref="chart" :style="{ width: '100%', height: '100%' }">
-          <div style="text-align: center; line-height: 400px;">
-            等待数据加载...
-          </div>
+          <div style="text-align: center; line-height: 400px">等待数据加载...</div>
         </div>
       </div>
     </div>
@@ -173,7 +164,7 @@ export default Vue.extend({
                 type: 'shadow',
                 label: {
                   show: true,
-                  formatter: function(params: any) {
+                  formatter: function (params: any) {
                     return params.value.replace('\n', '')
                   },
                 },

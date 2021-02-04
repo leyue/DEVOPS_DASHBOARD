@@ -3,7 +3,7 @@
     <div :style="{ position: 'fixed', top: `${lefBarTop}px` }">
       <div
         :class="{ 'item-node': true, 'node-selected': item.selected }"
-        style="width: 215px;"
+        style="width: 215px"
         v-for="(item, idx) in doc.node"
         :key="idx"
         :tabindex="idx + 1"
@@ -11,36 +11,23 @@
         @click="showDetailTray($event)"
       >
         <div class="line">
-          <div style="width: 20px; background-color: #5f6368;">
+          <div style="width: 20px; background-color: #5f6368">
             <i class="el-icon-link" style="color: #afb1b3"></i>
           </div>
-          <div
-            class="column node text"
-            style="padding-left: 5px; padding-top: 5px; width:100%; "
-          >
-            <div
-              class="text"
-              style="height:30%; width:100%; line-height: 10px; "
-            >
+          <div class="column node text" style="padding-left: 5px; padding-top: 5px; width: 100%">
+            <div class="text" style="height: 30%; width: 100%; line-height: 10px">
               {{ item.id }}
             </div>
-            <div class="text" style="height:30%; line-height: 10px; ">
+            <div class="text" style="height: 30%; line-height: 10px">
               {{ item.time }}
             </div>
-            <div class="text" style="height:30%; line-height: 10px;">
-              View Changes
-            </div>
+            <div class="text" style="height: 30%; line-height: 10px">View Changes</div>
           </div>
         </div>
       </div>
     </div>
     <div class="right">
-      <div
-        class="right-row"
-        style="width: 100%;"
-        v-for="(item, idx) in doc.node"
-        :key="idx"
-      >
+      <div class="right-row" style="width: 100%" v-for="(item, idx) in doc.node" :key="idx">
         <div class="line">
           <div
             :class="subItem | getItemBuildClass"
@@ -50,24 +37,17 @@
             @focus="onItemBuildClick($event, subIdx, item)"
             @click="showDetailTray($event)"
           >
-            {{
-              subItem.status == 'Finished' || subItem.status == 'NA'
-                ? ''
-                : subItem.status
-            }}
+            {{ subItem.status == 'Finished' || subItem.status == 'NA' ? '' : subItem.status }}
             <div v-if="subItem.status == 'Finished'">
               <i
-                style="color: #ffffff;  margin-top: 30px; margin-left: 55px;;"
+                style="color: #ffffff; margin-top: 30px; margin-left: 55px"
                 class="el-icon-download"
               ></i>
             </div>
           </div>
         </div>
       </div>
-      <div
-        v-show="detailTray"
-        :style="{ height: `${detailTrayHeight + 20}px` }"
-      ></div>
+      <div v-show="detailTray" :style="{ height: `${detailTrayHeight + 20}px` }"></div>
     </div>
   </div>
 </template>
@@ -103,19 +83,13 @@ export default Vue.extend({
         case 'Test Waiting':
         case 'Test Syncing':
         case 'Testing':
-          return `item-build text ongoing ${
-            item.selected ? 'build-selected' : ''
-          }`
+          return `item-build text ongoing ${item.selected ? 'build-selected' : ''}`
         case 'Build Fail':
         case 'Scan Fail':
         case 'Test Fail':
-          return `item-build text failed ${
-            item.selected ? 'build-selected' : ''
-          }`
+          return `item-build text failed ${item.selected ? 'build-selected' : ''}`
         case 'Finished':
-          return `item-build text passed ${
-            item.selected ? 'build-selected' : ''
-          }`
+          return `item-build text passed ${item.selected ? 'build-selected' : ''}`
         default:
           return `item-build text none ${item.selected ? 'build-selected' : ''}`
       }
@@ -161,8 +135,7 @@ export default Vue.extend({
     //   await this.$store.dispatch('node/getDoc', branch)
     // }, 113000)
     window.addEventListener('scroll', (e: any) => {
-      let scrollTop =
-        e.target.documentElement.scrollTop || e.target.body.scrollTop
+      let scrollTop = e.target.documentElement.scrollTop || e.target.body.scrollTop
       // console.log(scrollTop);
       this.lefBarTop = 136 - scrollTop
     })

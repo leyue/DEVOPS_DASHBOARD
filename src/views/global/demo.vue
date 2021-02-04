@@ -10,7 +10,7 @@
               filterable
               clearable
               v-model="districtType"
-              style="width: 140px;margin-left: 5px;"
+              style="width: 140px; margin-left: 5px"
             >
               <el-option
                 v-for="item in districtTypeOptions"
@@ -23,12 +23,7 @@
           </div>
           <!--项目类型-->
           <div class="item fl">
-            <el-select
-              filterable
-              clearable
-              v-model="buildType"
-              style="width: 140px;"
-            >
+            <el-select filterable clearable v-model="buildType" style="width: 140px">
               <el-option
                 v-for="item in buildTypeOptions"
                 :key="item.id"
@@ -39,12 +34,7 @@
             </el-select>
           </div>
           <div class="item fl" style="margin-left: 10px">
-            <el-select
-              filterable
-              clearable
-              v-model="buildId"
-              style="width: 190px;"
-            >
+            <el-select filterable clearable v-model="buildId" style="width: 190px">
               <el-option
                 v-for="item in buildOptions"
                 :key="item.code"
@@ -60,18 +50,11 @@
           </div>
         </div>
         <div class="header">
-          共{{ markers.length }}个项目<span
-            style="float: right;margin-right: 15px;"
-            >今日能耗</span
-          >
+          共{{ markers.length }}个项目<span style="float: right; margin-right: 15px">今日能耗</span>
         </div>
         <div class="list" :style="{ height: leftHeight }">
           <div class="list-context">
-            <div
-              ref="box"
-              class="list-scroll bmr-y-scroll"
-              :style="{ height: leftHeight }"
-            >
+            <div ref="box" class="list-scroll bmr-y-scroll" :style="{ height: leftHeight }">
               <!-- 项目列表-->
               <div class="listItemDIV">
                 <div
@@ -81,27 +64,20 @@
                   @click="lookDetail(marker, 'left')"
                   :class="{ active: activeName == marker.name }"
                 >
-                  <div
-                    class="head-title"
-                    v-text="marker.name"
-                    :title="marker.name"
-                  ></div>
+                  <div class="head-title" v-text="marker.name" :title="marker.name"></div>
                   <div class="row-content">
                     <span class="item fl"
-                      ><i class="iconfont nhjc-dianli electricity"></i
-                      >{{ marker.energy }}kWh</span
+                      ><i class="iconfont nhjc-dianli electricity"></i>{{ marker.energy }}kWh</span
                     >
                     <span class="item fl"
-                      ><i class="iconfont nhjc-shui water"></i
-                      >{{ marker.water }}m³</span
+                      ><i class="iconfont nhjc-shui water"></i>{{ marker.water }}m³</span
                     >
                     <span class="item fl"
-                      ><i class="iconfont nhjc-qi air"></i
-                      >{{ marker.air }}m³</span
+                      ><i class="iconfont nhjc-qi air"></i>{{ marker.air }}m³</span
                     >
                   </div>
                 </div>
-                <div style="clear:both;"></div>
+                <div style="clear: both"></div>
               </div>
             </div>
           </div>
@@ -155,8 +131,7 @@
               ><span class="right">{{ infoWindow.info.water }}m³</span>
             </p>
             <p>
-              <span class="left">气耗：</span
-              ><span class="right">{{ infoWindow.info.air }}m³</span>
+              <span class="left">气耗：</span><span class="right">{{ infoWindow.info.air }}m³</span>
             </p>
           </bm-info-window>
         </baidu-map>
@@ -288,8 +263,7 @@ export default {
       // this.map.center.lng = 118.802422
       // this.map.center.lat = 32.065631
       // this.map.zoom = 12;
-      this.map.width =
-        document.getElementById('container').clientWidth - 330 + 'px'
+      this.map.width = document.getElementById('container').clientWidth - 330 + 'px'
       this.map.height = document.body.clientHeight - 160 + 'px'
       this.getProPositionMap()
     },
@@ -332,7 +306,7 @@ export default {
         //获取楼建筑下拉框
         let temArr = new Array()
         temArr.push({ name: '请选择项目类型', id: 0, type: 10 })
-        res.array.forEach(function(item, index) {
+        res.array.forEach(function (item, index) {
           temArr.push(item)
         })
         console.log('res.array', res.array)

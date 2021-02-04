@@ -11,9 +11,7 @@
         status="success"
       ></el-progress>
       <div class="float-controll-bar">
-        <span
-          style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px;"
-        >
+        <span style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px">
           团队统计
         </span>
         <el-link
@@ -25,13 +23,11 @@
           {{ formatPath(item, idx, paths) }}
         </el-link>
         <div style="flex: 2"></div>
-        <div style="font-size: 12px;">点击矩形柱查看三级部门统计信息</div>
+        <div style="font-size: 12px">点击矩形柱查看三级部门统计信息</div>
       </div>
       <div class="chart">
         <div ref="chart" :style="{ width: '100%', height: '100%' }">
-          <div style="text-align: center; line-height: 400px;">
-            等待数据加载...
-          </div>
+          <div style="text-align: center; line-height: 400px">等待数据加载...</div>
         </div>
       </div>
     </div>
@@ -63,11 +59,9 @@ export default Vue.extend({
         return state.path
       },
       paths: (state: any) => {
-        let lst: Array<string> = state.path
-          .split('/')
-          .filter((item: string) => {
-            return item != ''
-          })
+        let lst: Array<string> = state.path.split('/').filter((item: string) => {
+          return item != ''
+        })
         return lst
       },
       total: (state: any) => {
@@ -175,7 +169,7 @@ export default Vue.extend({
                 type: 'shadow',
                 label: {
                   show: true,
-                  formatter: function(params: any) {
+                  formatter: function (params: any) {
                     return params.value.replace('\n', '')
                   },
                 },

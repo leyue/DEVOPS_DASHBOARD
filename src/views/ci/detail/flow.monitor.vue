@@ -2,11 +2,7 @@
   <div class="tab">
     <div>
       <el-timeline>
-        <el-timeline-item
-          v-for="(item, idx) in doc"
-          :timestamp="item.time"
-          placement="top"
-        >
+        <el-timeline-item v-for="(item, idx) in doc" :timestamp="item.time" placement="top">
           <el-card>
             <h4>{{ item.name }}</h4>
             <p>{{ item.status }}</p>

@@ -1,9 +1,7 @@
 <template>
   <div class="tab">
     <div>
-      <iframe class="container" <!-- src="https://www.baidu.com/" -->
-        frameborder="0" ></iframe
-      >
+      <iframe class="container" <!-- src="https://www.baidu.com/" --> frameborder="0" ></iframe>
     </div>
   </div>
 </template>

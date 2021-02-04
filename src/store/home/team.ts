@@ -38,8 +38,8 @@ const team = {
         return
       }
       state.path = path
-      state.total = 1
-      state.progress = 0
+      state.total = 100
+      state.progress = 1
       let doc: any = []
       let lst: Array<string> = path.split('/').filter((item: string) => {
         return item != ''
@@ -47,16 +47,11 @@ const team = {
       let len = lst.length
       switch (len) {
         case 1: {
-          let res = await $ax.ctx.get(
-            `${$cfg.url.ucloud}/v1/thirdAccess/depl/get-depl2Info`
-          )
+          let res = await $ax.ctx.get(`${$cfg.url.ucloud}/v1/thirdAccess/depl/get-depl2Info`)
           let teamL2s: Array<any> = res.data
           state.total = teamL2s.length
           for (let [idx, teamL2] of teamL2s.entries()) {
-            if (
-              !teamL2 ||
-              (white_list.length != 0 && !white_list.includes(teamL2))
-            ) {
+            if (!teamL2 || (white_list.length != 0 && !white_list.includes(teamL2))) {
               continue
             }
             res = await $ax.ctx.get(

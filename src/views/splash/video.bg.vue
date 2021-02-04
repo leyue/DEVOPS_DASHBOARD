@@ -1,13 +1,6 @@
 <template>
   <div class="app">
-    <video
-      ref="video"
-      :loop="false"
-      autoplay
-      data-keepplaying
-      :muted="muted"
-      @ended="onended"
-    >
+    <video ref="video" :loop="false" autoplay data-keepplaying :muted="muted" @ended="onended">
       <source :src="scene.res.highlight" type="video/mp4" />
     </video>
   </div>

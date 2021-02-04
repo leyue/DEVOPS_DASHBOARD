@@ -10,8 +10,8 @@
         }"
       >
         <com-summary></com-summary>
-        <div style="width: 10px;"></div>
-        <com-team style="flex: 2;"></com-team>
+        <div style="width: 10px"></div>
+        <com-team style="flex: 2"></com-team>
       </div>
       <div style="height: 400px">
         <com-project></com-project>

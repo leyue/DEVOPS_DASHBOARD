@@ -2,15 +2,15 @@
   <div v-show="show" class="app" :style="{ height: `${drag.height}px` }">
     <div class="content">
       <div class="title line" @mousedown="onTitleMouseDown($event)">
-        <p style="font-weight: bold; font-size: 14px;">{{ branch }}</p>
-        <p style="font-size: 12px; margin-left: 15px;">
+        <p style="font-weight: bold; font-size: 14px">{{ branch }}</p>
+        <p style="font-size: 12px; margin-left: 15px">
           {{ idx == -1 ? item.id : board.id }}
         </p>
-        <p style="font-size: 10px; margin-left: 15px;">
+        <p style="font-size: 10px; margin-left: 15px">
           {{ idx == -1 ? item.time : board.time }}
         </p>
-        <div style="flex: 2; height: 100%;"></div>
-        <p style="font-size: 10px;">按下ESC快速返回</p>
+        <div style="flex: 2; height: 100%"></div>
+        <p style="font-size: 10px">按下ESC快速返回</p>
         <el-button
           style="margin-left: 10px"
           type="info"
@@ -40,17 +40,13 @@
             </div>
           </el-tab-pane>
           <el-tab-pane>
-            <span slot="label"
-              ><div class="tab-pane">测试 (Test Results)</div></span
-            >
+            <span slot="label"><div class="tab-pane">测试 (Test Results)</div></span>
             <div class="page" :style="{ height: `${drag.pageHeight}px` }">
               <test />
             </div>
           </el-tab-pane>
           <el-tab-pane>
-            <span slot="label"
-              ><div class="tab-pane">流程监控 (Flow Monitor)</div></span
-            >
+            <span slot="label"><div class="tab-pane">流程监控 (Flow Monitor)</div></span>
             <div class="page">
               <flow-monitor />
             </div>

@@ -40,8 +40,7 @@ const router = new VueRouter({
   routes,
 })
 
-let enabelSplash: boolean =
-  (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
+let enabelSplash: boolean = (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
 let homePage: string = localStorage.getItem('setting-home-page') || 'home'
 
 router.beforeEach((to, from, next) => {

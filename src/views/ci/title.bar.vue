@@ -14,16 +14,8 @@
           </div>
         </div>
         <div>
-          <div
-            v-for="(item, idx) in doc.product"
-            :key="idx"
-            style="display: inline"
-          >
-            <div
-              class="item-user"
-              v-for="(subItem, subIdx) in item.user"
-              :key="subIdx"
-            >
+          <div v-for="(item, idx) in doc.product" :key="idx" style="display: inline">
+            <div class="item-user" v-for="(subItem, subIdx) in item.user" :key="subIdx">
               {{ subItem }}
             </div>
           </div>

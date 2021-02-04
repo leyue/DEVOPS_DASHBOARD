@@ -16,9 +16,7 @@ const product = {
   actions: {
     async loadProducts({ commit, state, rootState }: any) {
       state.progress = 1
-      let res1 = await $ax.ctx.get(
-        `${$cfg.url.ucloud}/v1/thirdAccess/test/select-testproject`
-      )
+      let res1 = await $ax.ctx.get(`${$cfg.url.ucloud}/v1/thirdAccess/test/select-testproject`)
       state.progress = 30
       let keys: Array<string> = Object.keys(res1.data)
       let res2Paras = `projectIds=${keys.join(',')}`
@@ -30,11 +28,9 @@ const product = {
       let productsInfo: any = {}
       keys.forEach((item: string) => {
         let productName = res1.data[item]
-        let findIdx = res2.data.findIndex(
-          (value: any, idx: number, arr: any) => {
-            return value.test_project == productName
-          }
-        )
+        let findIdx = res2.data.findIndex((value: any, idx: number, arr: any) => {
+          return value.test_project == productName
+        })
         if (findIdx != -1) {
           products.push({
             label: `${res1.data[item]}`,
@@ -45,8 +41,7 @@ const product = {
       })
       state.products = products
       state.productsInfo = productsInfo
-      let selected: any =
-        localStorage.getItem('home-product-picker-selected') || '[]'
+      let selected: any = localStorage.getItem('home-product-picker-selected') || '[]'
       selected = JSON.parse(selected)
       state.selected = selected
       state.progress = 100

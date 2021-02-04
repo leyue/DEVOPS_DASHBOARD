@@ -1,11 +1,6 @@
 <template>
   <div class="app column" v-show="show">
-    <i
-      v-if="false"
-      slot="reference"
-      @click="onDemoClick"
-      class="el-icon-warning-outline item"
-    ></i>
+    <i v-if="false" slot="reference" @click="onDemoClick" class="el-icon-warning-outline item"></i>
     <el-popover
       v-for="(item, idx) in items"
       :key="idx"
@@ -25,9 +20,7 @@
     >
       <div class="content">
         <div class="line">
-          <div
-            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px;"
-          >
+          <div style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px">
             显示引导页:
           </div>
           <el-switch
@@ -40,21 +33,15 @@
           >
           </el-switch>
         </div>
-        <div class="line" style="margin-top: 30px;">
-          <div
-            style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px;"
-          >
+        <div class="line" style="margin-top: 30px">
+          <div style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px">
             引导页跳转:
           </div>
           <div>
             <el-radio-group v-model="homePage" @change="onHomePageChanged">
               <el-radio style="" label="/home">云测主页</el-radio>
-              <el-radio style="margin-top: 10px;" label="/global"
-                >全球场测</el-radio
-              >
-              <el-radio style="margin-top: 10px;" label="/ci"
-                >云测仪表盘</el-radio
-              >
+              <el-radio style="margin-top: 10px" label="/global">全球场测</el-radio>
+              <el-radio style="margin-top: 10px" label="/ci">云测仪表盘</el-radio>
             </el-radio-group>
           </div>
         </div>
@@ -160,8 +147,7 @@ export default Vue.extend({
       let doc = await this.$ax.ctx.post(
         'http://127.0.0.1:8080/verify/mfservice/rest/verify/buildconfig',
         {
-          token:
-            '35ae82ffb63cdaa576308df98b79fc426ba096e0e958a5e46c689e3f7e25c50c',
+          token: '35ae82ffb63cdaa576308df98b79fc426ba096e0e958a5e46c689e3f7e25c50c',
           user: 'bm',
           name: 'sprdroid10_trunk_19c_widevine_dev',
         }
@@ -169,8 +155,7 @@ export default Vue.extend({
     },
   },
   async mounted() {
-    this.splash =
-      (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
+    this.splash = (localStorage.getItem('setting-enable-splash') || 'true') == 'true'
     this.homePage = localStorage.getItem('setting-home-page') || 'home'
 
     // let dom: HTMLElement | any = document.getElementById('switch0')

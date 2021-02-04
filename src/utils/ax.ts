@@ -26,9 +26,7 @@ ctx.interceptors.response.use(
     return res.data
   },
   async (err: any) => {
-    let message = `${err.response ? err.response : ''}-${
-      err.message ? err.message : ''
-    }`
+    let message = `${err.response ? err.response : ''}-${err.message ? err.message : ''}`
     Message({
       message,
       type: 'error',

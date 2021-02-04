@@ -2,14 +2,14 @@
   <div class="app" :style="{ 'margin-top': `${top}px` }">
     <div class="line">
       <img
-        style="margin-left: 15px; width: 120px; height: 100%; -webkit-font-smoothing: antialiased;"
+        style="margin-left: 15px; width: 120px; height: 100%; -webkit-font-smoothing: antialiased"
         src="@/assets/icon/紫光展锐-反白.png"
         alt=""
       />
-      <div style="flex: 2;"></div>
+      <div style="flex: 2"></div>
       <div
         class="button"
-        style="width: 100px; height: 100%; line-height: 52px;"
+        style="width: 100px; height: 100%; line-height: 52px"
         @click="onJumpDevops"
       >
         进入主页
