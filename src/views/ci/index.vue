@@ -16,7 +16,7 @@ import detailTray from './detail/index.vue'
 import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
-  name: 'index',
+  name: 'ci',
   components: { headerBar, titleBar, nodeContent, detailTray },
   computed: {
     ...mapState('user', {}),

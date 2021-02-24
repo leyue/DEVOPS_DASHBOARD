@@ -28,7 +28,7 @@ import comProject from './project.vue'
 import comTeam from './team.vue'
 
 export default Vue.extend({
-  name: '',
+  name: 'home',
   components: { comSummary, comTeam, comProject },
   data() {
     return {

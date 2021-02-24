@@ -3,7 +3,9 @@
     <div id="nav">
       <router-link to="/"></router-link>
     </div>
-    <router-view />
+    <keep-alive :include="cache">
+      <router-view />
+    </keep-alive>
     <right-controll-bar class="rightControllBar"></right-controll-bar>
   </div>
 </template>
@@ -14,6 +16,11 @@ import rightControllBar from '@/views/unique/right.controll.bar.vue'
 export default Vue.extend({
   name: '',
   components: { rightControllBar },
+  data() {
+    return {
+      cache: ['home', 'global', 'ci'],
+    }
+  },
 })
 </script>
 <style lang="less" scoped>

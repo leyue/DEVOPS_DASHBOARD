@@ -40,7 +40,7 @@ import BmInfoWindow from 'vue-baidu-map/components/overlays/InfoWindow.vue'
 import BmPointCollection from 'vue-baidu-map/components/overlays/PointCollection.vue'
 
 export default Vue.extend({
-  name: '',
+  name: 'global',
   components: {
     BaiduMap,
     BmScale,
