@@ -16,10 +16,10 @@
         <bm-navigation anchor="BMAP_ANCHOR_BOTTOM_RIGHT"></bm-navigation>
         <bm-marker-clusterer :averageCenter="true">
           <bm-marker
-            v-for="marker of markers"
-            :key="marker.code"
-            :position="{ lng: marker.lng, lat: marker.lat }"
-            @click="lookDetail(marker)"
+            v-for="item of markers"
+            :key="item.code"
+            :position="{ lng: item.lng, lat: item.lat }"
+            @click="lookDetail(item)"
           ></bm-marker>
         </bm-marker-clusterer>
       </baidu-map>
@@ -42,13 +42,21 @@ import BmPointCollection from 'vue-baidu-map/components/overlays/PointCollection
 export default Vue.extend({
   name: 'global',
   components: {
+    //@ts-ignore
     BaiduMap,
+    //@ts-ignore
     BmScale,
+    //@ts-ignore
     BmCityList,
+    //@ts-ignore
     BmNavigation,
+    //@ts-ignore
     BmMarkerClusterer,
+    //@ts-ignore
     BmMarker,
+    //@ts-ignore
     BmInfoWindow,
+    //@ts-ignore
     BmPointCollection,
   },
   data() {
@@ -75,19 +83,19 @@ export default Vue.extend({
     },
   },
   async mounted() {
-    for (var i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
       const position: any = {
         name: 'sh',
         desc: '...',
         lng: Math.random() * 40 + 85,
         lat: Math.random() * 30 + 21,
       }
+      //@ts-ignore
       this.markers.push(position)
-
-      let doms: any = document.getElementsByClassName('anchorBL')[0]
-      console.log(doms)
+      //@ts-ignore
       this.mapHeight = window.innerHeight - 80
       window.onresize = () => {
+        //@ts-ignore
         this.mapHeight = window.innerHeight - 80
       }
     }
