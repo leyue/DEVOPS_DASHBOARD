@@ -124,8 +124,8 @@ export default Vue.extend({
   box-sizing: border-box;
   color: #a9abab;
   font-size: 16px;
-  width: 350px;
-  height: 100%;
+  // width: 350px;
+  height: 320px;
   .box {
     box-sizing: border-box;
     background-color: #fff;
@@ -155,6 +155,7 @@ export default Vue.extend({
 
   .el-progress-bar__outer {
     border-radius: 1px !important;
+    background-color: #fff;
   }
   .el-progress-bar__inner {
     border-radius: 1px !important;

@@ -86,7 +86,6 @@ export default Vue.extend({
   methods: {
     onProductSelectClick() {},
     drawLinebar() {
-      let that = this
       let yDatas: any = []
       let sTestCountDatas: any = []
       let sTestTimeDatas: any = []
@@ -248,6 +247,9 @@ export default Vue.extend({
     },
   },
   async created() {},
+  activated() {
+    this.chart.resize()
+  },
   async mounted() {
     await this.$store.dispatch('homeProduct/loadProducts')
     this.chart = echarts.init(this.$refs.chart as HTMLElement)
@@ -262,7 +264,7 @@ export default Vue.extend({
   margin: 0 0px 0 0px;
   padding: 0 0 0 0px;
   width: 100%;
-  height: 100%;
+  height: 400px;
 }
 .box {
   box-sizing: border-box;
@@ -303,6 +305,7 @@ export default Vue.extend({
 .home-project {
   .el-progress-bar__outer {
     border-radius: 1px !important;
+    background-color: #fff;
   }
   .el-progress-bar__inner {
     border-radius: 1px !important;

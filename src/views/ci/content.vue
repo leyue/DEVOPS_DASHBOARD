@@ -1,9 +1,8 @@
 <template>
-  <div class="app">
+  <div class="app" ref="rightContent">
     <div :style="{ position: 'fixed', top: `${lefBarTop}px` }">
       <div
         :class="{ 'item-node': true, 'node-selected': item.selected }"
-        style="width: 215px"
         v-for="(item, idx) in doc.node"
         :key="idx"
         :tabindex="idx + 1"
@@ -15,19 +14,19 @@
             <i class="el-icon-link" style="color: #afb1b3"></i>
           </div>
           <div class="column node text" style="padding-left: 5px; padding-top: 5px; width: 100%">
-            <div class="text" style="height: 30%; width: 100%; line-height: 10px">
+            <div class="text" style="height: 30%; width: 100%; line-height: 12px">
               {{ item.id }}
             </div>
-            <div class="text" style="height: 30%; line-height: 10px">
+            <div class="text" style="height: 30%; line-height: 12px">
               {{ item.time }}
             </div>
-            <div class="text" style="height: 30%; line-height: 10px">View Changes</div>
+            <div class="text" style="height: 30%; line-height: 12px">View Changes</div>
           </div>
         </div>
       </div>
     </div>
     <div class="right">
-      <div class="right-row" style="width: 100%" v-for="(item, idx) in doc.node" :key="idx">
+      <div class="right-row" v-for="(item, idx) in doc.node" :key="idx">
         <div class="line">
           <div
             :class="subItem | getItemBuildClass"
@@ -55,6 +54,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
+const left_offset = 136
 
 export default Vue.extend({
   name: '',
@@ -68,7 +68,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      lefBarTop: 136,
+      lefBarTop: left_offset,
       detailTrayHeight: 400,
       detailTray: false,
     }
@@ -136,59 +136,48 @@ export default Vue.extend({
     // }, 113000)
     window.addEventListener('scroll', (e: any) => {
       let scrollTop = e.target.documentElement.scrollTop || e.target.body.scrollTop
-      // console.log(scrollTop);
-      this.lefBarTop = 136 - scrollTop
+      this.lefBarTop = left_offset - scrollTop
+      // console.log(`${this.lefBarTop * 75} -- ${scrollTop}`)
     })
   },
 })
-</script>
+</script>0
 
 <style lang="less" scoped>
 .app {
   box-sizing: border-box;
-  // background-color: #74a4bb;
-  // height: 500px;
   width: 100%;
-}
-
-.left {
-  position: fixed;
-  top: 136px;
 }
 
 .item-node {
   box-sizing: border-box;
+  width: 215px;
   height: 51px;
   line-height: 51px;
   padding: 0;
-  margin: 2px 2px 2px 0px;
+  margin: 0 0 4px 0;
   background-color: #303030;
 }
 
 .right {
   box-sizing: border-box;
-  margin-top: 62.5px;
-  // background-color: #d8cdcd;
+  margin-top: 61px;
   margin-left: 215px;
   .right-row {
-    box-sizing: border-box;
     height: 51px;
-    line-height: 51px;
-
+    // line-height: 51px;
     padding: 0px;
-    margin: 2px 2px 2px 0px;
-    // background-color: #a7daee;
+    margin: 0 0 4px 0;
     .item-build {
       box-sizing: border-box;
       width: 85px;
       height: 51px;
       line-height: 51px;
-      padding: 0;
-      margin: 2px;
+      padding: 0 5px;
+      margin: 0 0 0 4px;
       text-align: center;
       font-size: 13px;
       flex-shrink: 0;
-      // color: #e1e3e5;
     }
   }
 }

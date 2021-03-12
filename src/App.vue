@@ -21,6 +21,17 @@ export default Vue.extend({
       cache: ['home', 'global', 'ci'],
     }
   },
+  mounted() {
+    let doc = document.documentElement
+    window.addEventListener('resize', () => {
+      if (window.orientation === 180 || window.orientation === 0) {
+        console.log('竖屏')
+      }
+      if (window.orientation === 90 || window.orientation === -90) {
+        console.log('横屏')
+      }
+    })
+  },
 })
 </script>
 <style lang="less" scoped>
@@ -41,5 +52,32 @@ export default Vue.extend({
       color: #42b983;
     }
   }
+}
+</style>
+
+<style lang="less">
+@media screen and (orientation: portrait) {
+  /*竖屏...*/
+}
+@media screen and (orientation: landscape) {
+  /*横屏...*/
+}
+@media only screen and (max-width: 1600px) and (min-width: 1280px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media only screen and (max-width: 1280px) and (min-width: 960px) {
+  html {
+    font-size: 12px;
+  }
+}
+@media only screen and (max-width: 960px) {
+  html {
+    font-size: 10px;
+  }
+}
+img {
+  content: normal !important;
 }
 </style>

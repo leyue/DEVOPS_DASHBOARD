@@ -75,7 +75,7 @@ export default Vue.extend({
 <style lang="less">
 .home-product-picker {
   .el-transfer-panel {
-    width: 400px;
+    width: 320px;
   }
   .el-transfer__buttons {
     padding: 0 10px;
@@ -90,10 +90,10 @@ export default Vue.extend({
     border-radius: 0px;
   }
   .el-transfer-panel__body {
-    height: 450px;
+    height: 350px;
   }
   .el-transfer-panel__list {
-    height: 400px;
+    height: 300px;
   }
 }
 </style>

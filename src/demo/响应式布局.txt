@@ -1,0 +1,16 @@
+layout viewport: 布局视口 width: 980px
+
+visual viewport: 可视视口
+
+ideal viewport: 理想视口
+
+device-width: 手机屏幕大小
+
+initial-scale=2: 按钮变大2倍
+
+minimum-scale: 最小缩放比例
+
+maximum-scale: 最大缩放比例
+
+user-scalabel=yes,no: 允许用户缩放
+

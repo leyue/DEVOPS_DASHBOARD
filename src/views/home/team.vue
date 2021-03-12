@@ -18,6 +18,7 @@
           style="font-size: 16px; padding-top: 0px; font-weight: 600; color: #2a2a2acc"
           type="info"
           v-for="(item, idx) in paths"
+          :key="idx"
           @click="onPathClick($event, item)"
         >
           {{ formatPath(item, idx, paths) }}
@@ -90,7 +91,7 @@ export default Vue.extend({
       }
     },
     drawLinebar() {
-      let that = this
+      // let that = this
       let yDatas: any = []
       let sProductDatas: any = []
       let sCaseDatas: any = []
@@ -271,16 +272,18 @@ export default Vue.extend({
     },
   },
   async created() {},
+  activated() {
+    this.chart.resize()
+  },
   async mounted() {
     await this.$store.dispatch('team/jumpToPath', { path: '/UNISOC' })
-    let that = this
     this.chart = echarts.init(this.$refs.chart as HTMLElement)
     this.chart.on('click', async (item: any) => {
       console.log(item)
-      if (that.total != that.progress || !item.seriesId) {
+      if (this.total != this.progress || !item.seriesId) {
         return
       }
-      if (that.paths.length >= 2) {
+      if (this.paths.length >= 2) {
         Message({
           message: '最小支持到三级部门',
           type: 'warning',
@@ -288,10 +291,10 @@ export default Vue.extend({
         })
         return
       }
-      await that.$store.dispatch('team/jumpToPath', {
-        path: `${that.path}/${item.name}`,
+      await this.$store.dispatch('team/jumpToPath', {
+        path: `${this.path}/${item.name}`,
       })
-      that.drawLinebar()
+      this.drawLinebar()
     })
     this.drawLinebar()
   },
@@ -303,7 +306,7 @@ export default Vue.extend({
   box-sizing: border-box;
   margin: 0 0 0 0px;
   padding: 0 0 0 0px;
-  height: 100%;
+  height: 320px;
 }
 .box {
   box-sizing: border-box;
@@ -344,6 +347,7 @@ export default Vue.extend({
 .home-team {
   .el-progress-bar__outer {
     border-radius: 1px !important;
+    background-color: #fff;
   }
   .el-progress-bar__inner {
     border-radius: 1px !important;

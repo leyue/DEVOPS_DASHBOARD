@@ -2,20 +2,17 @@
   <div class="app">
     <div class="header">云测主页</div>
     <div class="content">
-      <div
-        class="line"
-        :style="{
-          'margin-bottom': '10px',
-          height: '400px',
-        }"
-      >
-        <com-summary></com-summary>
-        <div style="width: 10px"></div>
-        <com-team style="flex: 2"></com-team>
-      </div>
-      <div style="height: 400px">
-        <com-project></com-project>
-      </div>
+      <el-row :gutter="10">
+        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="8" :lg="7" :xl="6">
+          <com-summary></com-summary>
+        </el-col>
+        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="16" :lg="17" :xl="18">
+          <com-team style="flex: 2"></com-team>
+        </el-col>
+        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+          <com-project></com-project>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -77,5 +74,14 @@ export default Vue.extend({
   justify-content: flex-start;
   align-items: flex-start;
   align-content: center;
+}
+@media screen and (orientation: portrait) {
+  /*竖屏...*/
+  .header {
+    background-color: #b33636cc;
+  }
+}
+@media screen and (orientation: landscape) {
+  /*横屏...*/
 }
 </style>

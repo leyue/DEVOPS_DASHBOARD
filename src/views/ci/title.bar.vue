@@ -80,10 +80,10 @@ export default Vue.extend({
       font-size: 12px;
       .item-product {
         box-sizing: border-box;
-        height: 30px;
-        line-height: 30px;
+        height: 33px;
+        line-height: 33px;
         padding: 0 5px;
-        margin: 2px;
+        margin: 0 0 2px 4px;
         width: 85px;
         display: inline-block;
         background-color: #ffffff;
@@ -96,7 +96,7 @@ export default Vue.extend({
         box-sizing: border-box;
         height: 33px;
         line-height: 33px;
-        margin: 2px;
+        margin: 0 0 0 4px;
         width: 85px;
         display: inline-block;
         background-color: #57bb8a;
