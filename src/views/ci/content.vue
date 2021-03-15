@@ -1,33 +1,33 @@
 <template>
   <div class="app" ref="rightContent">
-    <div :style="{ position: 'fixed', top: `${lefBarTop}px` }">
+    <div class="left" :style="{ position: 'fixed', top: `${lefBarTop}px` }">
       <div
-        :class="{ 'item-node': true, 'node-selected': item.selected }"
+        :class="{ 'left-line': true, 'left-line-selected': item.selected }"
         v-for="(item, idx) in doc.node"
         :key="idx"
         :tabindex="idx + 1"
         @focus="onItemNodeClick($event, -1, item)"
         @click="showDetailTray($event)"
       >
-        <div class="line">
-          <div style="width: 20px; background-color: #5f6368">
-            <i class="el-icon-link" style="color: #afb1b3"></i>
+        <div class="hline line">
+          <div class="logo">
+            <i class="el-icon-link"></i>
           </div>
-          <div class="column node text" style="padding-left: 5px; padding-top: 5px; width: 100%">
-            <div class="text" style="height: 30%; width: 100%; line-height: 12px">
+          <div class="text-nowrap node-info">
+            <div class="text-nowrap item">
               {{ item.id }}
             </div>
-            <div class="text" style="height: 30%; line-height: 12px">
+            <div class="text-nowrap item">
               {{ item.time }}
             </div>
-            <div class="text" style="height: 30%; line-height: 12px">View Changes</div>
+            <div class="text-nowrap item">View Changes</div>
           </div>
         </div>
       </div>
     </div>
     <div class="right">
       <div class="right-row" v-for="(item, idx) in doc.node" :key="idx">
-        <div class="line">
+        <div class="hline line">
           <div
             :class="subItem | getItemBuildClass"
             v-for="(subItem, subIdx) in item.products"
@@ -38,10 +38,7 @@
           >
             {{ subItem.status == 'Finished' || subItem.status == 'NA' ? '' : subItem.status }}
             <div v-if="subItem.status == 'Finished'">
-              <i
-                style="color: #ffffff; margin-top: 30px; margin-left: 55px"
-                class="el-icon-download"
-              ></i>
+              <i class="el-icon-download dowload"></i>
             </div>
           </div>
         </div>
@@ -83,15 +80,15 @@ export default Vue.extend({
         case 'Test Waiting':
         case 'Test Syncing':
         case 'Testing':
-          return `item-build text ongoing ${item.selected ? 'build-selected' : ''}`
+          return `item-build text-nowrap ongoing ${item.selected ? 'build-selected' : ''}`
         case 'Build Fail':
         case 'Scan Fail':
         case 'Test Fail':
-          return `item-build text failed ${item.selected ? 'build-selected' : ''}`
+          return `item-build text-nowrap failed ${item.selected ? 'build-selected' : ''}`
         case 'Finished':
-          return `item-build text passed ${item.selected ? 'build-selected' : ''}`
+          return `item-build text-nowrap passed ${item.selected ? 'build-selected' : ''}`
         default:
-          return `item-build text none ${item.selected ? 'build-selected' : ''}`
+          return `item-build text-nowrap none ${item.selected ? 'build-selected' : ''}`
       }
     },
   },
@@ -149,14 +146,37 @@ export default Vue.extend({
   width: 100%;
 }
 
-.item-node {
-  box-sizing: border-box;
-  width: 215px;
-  height: 51px;
-  line-height: 51px;
-  padding: 0;
-  margin: 0 0 4px 0;
-  background-color: #303030;
+.left {
+  .left-line {
+    box-sizing: border-box;
+    width: 215px;
+    height: 51px;
+    line-height: 51px;
+    padding: 0;
+    margin: 0 0 4px 0;
+    background-color: #303030;
+  }
+  .logo {
+    height: 98%;
+    width: 20px;
+    background-color: #5f6368;
+    i {
+      color: #afb1b3;
+    }
+    // margin: 3px 0px 3px 0px;
+  }
+  .node-info {
+    font-size: 12px;
+    color: #c6cdd8;
+    padding-left: 5px;
+    // margin: 3px 3px 3px 0;
+    width: 100%;
+    .item {
+      height: 33%;
+      line-height: 12px;
+      margin: 3px;
+    }
+  }
 }
 
 .right {
@@ -179,63 +199,50 @@ export default Vue.extend({
       font-size: 13px;
       flex-shrink: 0;
     }
+    .dowload {
+      color: #ffffff;
+      margin-top: 30px;
+      margin-left: 55px;
+    }
   }
 }
 
 .line {
   height: 100%;
   width: 100%;
-  display: inline-flex;
-  flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
-  align-content: center;
 }
 
 .column {
   width: 100%;
   height: 100%;
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
   align-content: flex-start;
 }
 
-.node {
-  font-size: 12px;
-  color: #c6cdd8;
-}
-
-.text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .passed {
-  background-color: #57bb8a;
+  background-color: #55c991;
 }
 
 .ongoing {
-  background-color: #f5af80;
-  color: #72757a;
+  background-color: #e2b571;
+  color: #5c5d5f;
 }
 
 .failed {
-  background-color: #c00000;
-  color: #e1e3e5;
+  background-color: #c71717;
+  color: #fff;
 }
 
 .none {
   background-color: #aeaaaa;
 }
 
-.node-selected {
-  background-color: rgb(7, 77, 117);
+.left-line-selected {
+  border: 3.3px solid rgb(7, 77, 117);
 }
 
 .build-selected {
-  border: 3.5px solid rgb(7, 77, 117);
+  border: 3px solid rgb(7, 77, 117);
 }
 </style>

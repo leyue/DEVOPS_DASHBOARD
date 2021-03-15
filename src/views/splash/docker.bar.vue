@@ -1,5 +1,5 @@
 <template>
-  <div class="app line" :style="{ bottom: `${bottom}px` }">
+  <div class="hline splash-docker" :style="{ bottom: `${bottom}px` }">
     <div
       :class="{ scene: true, 'scene-selected': item.selected }"
       v-for="(item, idx) in scenes"
@@ -49,7 +49,7 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-.app {
+.splash-docker {
   box-sizing: border-box;
   position: fixed;
   left: 100px;
@@ -58,14 +58,6 @@ export default Vue.extend({
   background-color: #150d0bbb;
   border-radius: 5px 5px 5px 5px;
   transition: bottom 0.5s cubic-bezier(0.42, 0, 0.58, 1) 0s;
-}
-
-.line {
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
 }
 
 .scene {

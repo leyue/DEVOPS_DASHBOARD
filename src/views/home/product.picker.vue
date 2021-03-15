@@ -1,7 +1,7 @@
 <template>
   <div class="home-product-picker">
     <el-transfer
-      style="text-align: left; display: inline-block"
+      class="select"
       v-model="selected"
       filterable
       :titles="['被测试过的项目', '最多同时查看10个项目']"
@@ -68,8 +68,10 @@ export default Vue.extend({
 <style lang="less" scoped>
 .home-product-picker {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px;
+  .select {
+    text-align: left;
+    display: inline-block;
+  }
 }
 </style>
 <style lang="less">

@@ -1,15 +1,12 @@
 <template>
   <div class="app">
     <div class="content">
-      <div class="line">
+      <div class="hline line">
         <i class="el-icon-s-unfold"></i>
-        <p style="margin-left: 20px; min-width: 90px; font-weight: bold; font-size: 18px">
-          Devops CI
-        </p>
-        <div style="margin-left: 75px; flex: 2; min-width: 150px">
+        <p class="tile">Devops CI</p>
+        <div class="select">
           <el-autocomplete
             class="inline-input"
-            style="width: 100%"
             v-model="v0"
             :fetch-suggestions="onFetchSuggestion"
             placeholder="Enter a branch name."
@@ -21,14 +18,13 @@
             </template>
           </el-autocomplete>
         </div>
-        <el-checkbox style="margin-left: 15px">与我相关的</el-checkbox>
+        <el-checkbox>与我相关的</el-checkbox>
         <div>
           <el-tooltip class="item" effect="dark" content="Help" placement="bottom-end">
-            <i class="el-icon-question" style="margin-left: 55px"></i>
+            <i class="el-icon-question help"></i>
           </el-tooltip>
         </div>
-        <i class="el-icon-s-opportunity" style="margin-left: 15px"></i>
-        <div style="margin-left: 40px; color: #68a3f0; font-size: 16px">登陆</div>
+        <div class="login">登陆</div>
       </div>
     </div>
   </div>
@@ -103,13 +99,31 @@ export default Vue.extend({
   width: 100%;
   height: 100%;
   line-height: 61px;
-  display: inline-flex;
-  flex-direction: row;
-  // 主轴对其方式
   justify-content: flex-start;
-  // 交叉轴对其方式
-  align-items: center;
-  // 多根轴线对其方式
-  align-content: center;
+  .tile {
+    margin-left: 20px;
+    min-width: 90px;
+    font-weight: bold;
+    font-size: 18px;
+  }
+  .select {
+    margin-left: 78px;
+    flex: 2;
+    min-width: 150px;
+    .el-autocomplete {
+      width: 100%;
+    }
+  }
+  .el-checkbox {
+    margin-left: 15px;
+  }
+  .help {
+    margin-left: 55px;
+  }
+  .login {
+    margin-left: 40px;
+    color: #68a3f0;
+    font-size: 16px;
+  }
 }
 </style>

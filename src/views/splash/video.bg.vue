@@ -62,6 +62,7 @@ export default Vue.extend({
 
 <style lang="less" scoped>
 .app {
+  box-sizing: border-box;
   position: fixed;
   right: 0px;
   bottom: 0px;

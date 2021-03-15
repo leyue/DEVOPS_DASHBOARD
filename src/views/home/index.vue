@@ -3,13 +3,13 @@
     <div class="header">云测主页</div>
     <div class="content">
       <el-row :gutter="10">
-        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="8" :lg="7" :xl="6">
+        <el-col class="row" :xs="24" :sm="24" :md="8" :lg="7" :xl="6">
           <com-summary></com-summary>
         </el-col>
-        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="16" :lg="17" :xl="18">
-          <com-team style="flex: 2"></com-team>
+        <el-col class="row" :xs="24" :sm="24" :md="16" :lg="17" :xl="18">
+          <com-team class="flex-spacer"></com-team>
         </el-col>
-        <el-col style="margin-bottom: 10px" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
+        <el-col class="row" :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
           <com-project></com-project>
         </el-col>
       </el-row>
@@ -48,8 +48,6 @@ export default Vue.extend({
 <style lang="less" scoped>
 .app {
   box-sizing: border-box;
-  margin: 0px;
-  padding: 0px 0 0px 0;
 }
 .header {
   width: 100%;
@@ -65,16 +63,11 @@ export default Vue.extend({
 }
 .content {
   margin: 65px 56px 0px 15px;
+  .row {
+    margin-bottom: 10px;
+  }
 }
-.line {
-  width: 100%;
-  height: 100%;
-  display: inline-flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  align-content: center;
-}
+
 @media screen and (orientation: portrait) {
   /*竖屏...*/
   .header {

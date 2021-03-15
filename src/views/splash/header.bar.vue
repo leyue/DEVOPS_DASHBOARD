@@ -1,19 +1,9 @@
 <template>
-  <div class="app" :style="{ 'margin-top': `${top}px` }">
-    <div class="line">
-      <img
-        style="margin-left: 15px; width: 120px; height: 100%; -webkit-font-smoothing: antialiased"
-        src="@/assets/icon/紫光展锐-反白.png"
-        alt=""
-      />
+  <div class="splash-header" :style="{ 'margin-top': `${top}px` }">
+    <div class="hline line">
+      <img class="logo" src="@/assets/icon/紫光展锐-反白.png" alt="" />
       <div style="flex: 2"></div>
-      <div
-        class="button"
-        style="width: 100px; height: 100%; line-height: 52px"
-        @click="onJumpDevops"
-      >
-        进入主页
-      </div>
+      <div class="button jump-home" @click="onJumpHome">进入主页</div>
     </div>
   </div>
 </template>
@@ -44,7 +34,7 @@ export default Vue.extend({
   },
   filters: {},
   methods: {
-    onJumpDevops() {
+    onJumpHome() {
       let homePage = localStorage.getItem('setting-home-page') || '/home'
       this.$router.push(homePage)
     },
@@ -54,28 +44,33 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-// @import url('../../glob/index.less');
-.app {
+// @import '~@/glob/index.less';
+
+.splash-header {
+  box-sizing: border-box;
   width: 100%;
   height: 52px;
-  background-color: #2a2a2acc;
+  background-color: @lightBlack;
   color: #fefefe;
   text-align: center;
-  font-size: 14px;
   transition: margin-top 0.5s cubic-bezier(0.42, 0, 0.58, 1) 0s;
 }
 .line {
   width: 100%;
   height: 100%;
   line-height: 61px;
-  display: inline-flex;
-  flex-direction: row;
-  // 主轴对其方式
   justify-content: flex-start;
-  // 交叉轴对其方式
-  align-items: center;
-  // 多根轴线对其方式
-  align-content: center;
+  .logo {
+    margin-left: 15px;
+    width: 120px;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+  }
+  .jump-home {
+    width: 100px;
+    height: 100%;
+    line-height: 52px;
+  }
 }
 
 .button {

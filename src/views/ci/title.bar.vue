@@ -1,6 +1,6 @@
 <template>
   <div class="app">
-    <div class="content line">
+    <div class="content hline line">
       <div class="left"></div>
       <div class="right">
         <div>
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div>
-          <div v-for="(item, idx) in doc.product" :key="idx" style="display: inline">
+          <div v-for="(item, idx) in doc.product" :key="idx" class="item-product-users">
             <div class="item-user" v-for="(subItem, subIdx) in item.user" :key="subIdx">
               {{ subItem }}
             </div>
@@ -92,18 +92,21 @@ export default Vue.extend({
         text-align: center;
         text-overflow: ellipsis;
       }
-      .item-user {
-        box-sizing: border-box;
-        height: 33px;
-        line-height: 33px;
-        margin: 0 0 0 4px;
-        width: 85px;
-        display: inline-block;
-        background-color: #57bb8a;
-        white-space: nowrap;
-        overflow: hidden;
-        text-align: center;
-        text-overflow: ellipsis;
+      .item-product-users {
+        display: inline;
+        .item-user {
+          box-sizing: border-box;
+          height: 33px;
+          line-height: 33px;
+          margin: 0 0 0 4px;
+          width: 85px;
+          display: inline-block;
+          background-color: #55c991;
+          white-space: nowrap;
+          overflow: hidden;
+          text-align: center;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
@@ -112,11 +115,8 @@ export default Vue.extend({
 .line {
   width: 100%;
   height: 100%;
-  display: inline-flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  align-content: center;
 }
 
 .passed {

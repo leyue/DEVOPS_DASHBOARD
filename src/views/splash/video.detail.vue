@@ -68,6 +68,7 @@ export default Vue.extend({
 
 <style lang="less" scoped>
 .sub {
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
 }

@@ -10,12 +10,10 @@
         :percentage="percentage"
         status="success"
       ></el-progress>
-      <div class="float-controll-bar">
-        <span style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px">
-          团队统计
-        </span>
+      <div class="float-controll-bar hline">
+        <span class="title"> 团队统计 </span>
         <el-link
-          style="font-size: 16px; padding-top: 0px; font-weight: 600; color: #2a2a2acc"
+          class="path"
           type="info"
           v-for="(item, idx) in paths"
           :key="idx"
@@ -24,11 +22,11 @@
           {{ formatPath(item, idx, paths) }}
         </el-link>
         <div style="flex: 2"></div>
-        <div style="font-size: 12px">点击矩形柱查看三级部门统计信息</div>
+        <div class="tip">点击矩形柱查看三级部门统计信息</div>
       </div>
       <div class="chart">
         <div ref="chart" :style="{ width: '100%', height: '100%' }">
-          <div style="text-align: center; line-height: 400px">等待数据加载...</div>
+          <div class="tip">等待数据加载...</div>
         </div>
       </div>
     </div>
@@ -307,6 +305,7 @@ export default Vue.extend({
   margin: 0 0 0 0px;
   padding: 0 0 0 0px;
   height: 320px;
+  width: 100%;
 }
 .box {
   box-sizing: border-box;
@@ -325,6 +324,10 @@ export default Vue.extend({
       top: -5px !important;
       z-index: 0 !important;
     }
+    .tip {
+      text-align: center;
+      line-height: 400px;
+    }
   }
 }
 .float-controll-bar {
@@ -332,14 +335,22 @@ export default Vue.extend({
   padding: 10px 10px 0 18px;
   width: 100%;
   z-index: 100;
-  display: inline-flex;
-  flex-direction: row;
-  // 主轴对其方式
   justify-content: flex-start;
-  // 交叉轴对其方式
-  align-items: center;
-  // 多根轴线对其方式
-  align-content: center;
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2a2a2acc;
+    margin-right: 10px;
+  }
+  .path {
+    font-size: 15px;
+    font-weight: 600;
+    padding-top: 0px;
+    color: #2a2a2acc;
+  }
+  .tip {
+    font-size: 12px;
+  }
 }
 </style>
 

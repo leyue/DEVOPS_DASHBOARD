@@ -1,5 +1,5 @@
 <template>
-  <div class="app column" v-show="show">
+  <div class="vline unique-right" v-show="show">
     <i v-if="false" slot="reference" @click="onDemoClick" class="el-icon-warning-outline item"></i>
     <el-popover
       v-for="(item, idx) in items"
@@ -12,17 +12,10 @@
       <i slot="reference" :class="item | itemClass" @click="onJump(item)"></i>
     </el-popover>
     <div style="flex: 2"></div>
-    <el-popover
-      placement="left"
-      width="250"
-      trigger="hover"
-      content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。"
-    >
+    <el-popover placement="left" width="250" trigger="hover" content="...">
       <div class="content">
-        <div class="line">
-          <div style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px">
-            显示引导页:
-          </div>
+        <div class="hline line">
+          <div class="label">显示引导页:</div>
           <el-switch
             id="switch0"
             size="mini"
@@ -33,10 +26,8 @@
           >
           </el-switch>
         </div>
-        <div class="line" style="margin-top: 30px">
-          <div style="width: 100px; flex-shrink: 0; color: #0aaff1; font-size: 14px">
-            引导页跳转:
-          </div>
+        <div class="hline line" style="margin-top: 30px">
+          <div class="label">引导页跳转:</div>
           <div>
             <el-radio-group v-model="homePage" @change="onHomePageChanged">
               <el-radio style="" label="/home">云测主页</el-radio>
@@ -164,26 +155,13 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="less">
-.el-switch__core {
-  border-radius: 0px;
-}
-</style>
 <style lang="less" scoped>
-.app {
+.unique-right {
+  box-sizing: border-box;
   position: fixed;
   right: 5px;
   top: 200px;
   height: 450px;
-  font-size: 14px;
-}
-
-.column {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
 }
 
 .item {
@@ -214,11 +192,22 @@ export default Vue.extend({
 .line {
   width: 100%;
   height: 100%;
-  display: inline-flex;
-  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  align-content: center;
   margin: 0;
+  .label {
+    width: 100px;
+    flex-shrink: 0;
+    color: #0aaff1;
+    font-size: 14px;
+  }
+}
+</style>
+
+<style lang="less">
+.unique-right {
+  .el-switch__core {
+    border-radius: 0px;
+  }
 }
 </style>

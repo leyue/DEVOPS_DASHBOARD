@@ -1,8 +1,11 @@
+const path = require('path')
+
 module.exports = {
   outputDir: 'dist',
   assetsDir: 'assets',
   lintOnSave: true,
   publicPath: './',
+
   devServer: {
     open: true,
     host: '127.0.0.1',
@@ -16,6 +19,13 @@ module.exports = {
           '^/verify': '',
         },
       },
+    },
+  },
+
+  pluginOptions: {
+    'style-resources-loader': {
+      preProcessor: 'less',
+      patterns: [path.resolve(__dirname, 'src/glob/index.less')],
     },
   },
 }

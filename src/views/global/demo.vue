@@ -241,7 +241,7 @@ export default {
       // let This=this;
       //为弹窗口标题添加title
       this.$nextTick(() => {
-        var win = document.querySelector('.BMap_bubble_title')
+        let win = document.querySelector('.BMap_bubble_title')
         win.title = this.activeName
       })
       if (target == 'left') {
@@ -252,8 +252,8 @@ export default {
       }
       //滚动到指定元素位置
       this.$nextTick(() => {
-        var obj = document.querySelector('.active')
-        var scrollTop = obj.offsetTop
+        let obj = document.querySelector('.active')
+        let scrollTop = obj.offsetTop
         this.$refs.box.scrollTop = scrollTop - 180
       })
     },
@@ -304,7 +304,7 @@ export default {
     getBuildTypes() {
       getProgramsType().then((res) => {
         //获取楼建筑下拉框
-        let temArr = new Array()
+        let temArr = []
         temArr.push({ name: '请选择项目类型', id: 0, type: 10 })
         res.array.forEach(function (item, index) {
           temArr.push(item)

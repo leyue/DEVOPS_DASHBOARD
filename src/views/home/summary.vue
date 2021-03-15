@@ -9,46 +9,36 @@
         :percentage="percentage"
         status="success"
       ></el-progress>
-      <div style="padding: 15px">
+      <div class="content">
         <div style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-bottom: 20px">
           信息汇总
         </div>
-        <div class="item line">
-          <el-button size="mini" style="width: 28px; background-color: #1b83c6; color: #fff" circle
-            >1
-          </el-button>
+        <div class="item hline">
+          <el-button size="mini" style="background-color: #1b83c6" circle>1 </el-button>
           -项目总数
           <div style="flex: 2"></div>
           <p style="color: #1b83c6">{{ projectCnt }}个</p>
         </div>
-        <div class="item line">
-          <el-button size="mini" style="width: 28px; background-color: #23c6c8; color: #fff" circle
-            >2
-          </el-button>
+        <div class="item hline">
+          <el-button size="mini" style="background-color: #23c6c8" circle>2 </el-button>
           -用例总数
           <div style="flex: 2"></div>
           <p style="color: #23c6c8">{{ caseCnt }}个</p>
         </div>
-        <div class="item line">
-          <el-button size="mini" style="width: 28px; background-color: #19b394; color: #fff" circle
-            >3
-          </el-button>
+        <div class="item hline">
+          <el-button size="mini" style="background-color: #19b394" circle>3 </el-button>
           -测试总时长
           <div style="flex: 2"></div>
           <p style="color: #19b394">{{ testTimeDuration }}H</p>
         </div>
-        <div class="item line">
-          <el-button size="mini" style="width: 28px; background-color: #67c23a; color: #fff" circle
-            >4
-          </el-button>
+        <div class="item hline">
+          <el-button size="mini" style="background-color: #67c23a" circle>4 </el-button>
           -测试总样本
           <div style="flex: 2"></div>
           <p style="color: #67c23a">{{ testDutCnt }}个</p>
         </div>
-        <div class="item line">
-          <el-button size="mini" style="width: 28px; background-color: #f8ac59; color: #fff" circle
-            >5
-          </el-button>
+        <div class="item hline">
+          <el-button size="mini" style="background-color: #f8ac59" circle>5 </el-button>
           -资源数
           <div style="flex: 2"></div>
           <p style="color: #f8ac59">手机: {{ pcCnt }}台 | 仪表: {{ instrumentCnt }}台</p>
@@ -119,7 +109,7 @@ export default Vue.extend({
 })
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .home-summary {
   box-sizing: border-box;
   color: #a9abab;
@@ -133,26 +123,31 @@ export default Vue.extend({
     padding: 0px;
     width: 100%;
     height: 100%;
-  }
-  .line {
-    width: 100%;
-    height: 100%;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    align-content: center;
-  }
-  .item {
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.11);
-    padding: 0px 0px;
-    p {
-      font-size: 18px;
-      font-weight: bold;
-      margin: 10px;
+    .content {
+      padding: 15px;
+      .item {
+        width: 100%;
+        height: 100%;
+        justify-content: flex-start;
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.11);
+        padding: 0px 0px;
+        p {
+          font-size: 18px;
+          font-weight: bold;
+          margin: 10px;
+        }
+        .el-button {
+          width: 28px;
+          color: #fff;
+        }
+      }
     }
   }
+}
+</style>
 
+<style lang="less">
+.home-summary {
   .el-progress-bar__outer {
     border-radius: 1px !important;
     background-color: #fff;

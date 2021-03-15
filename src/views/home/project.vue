@@ -11,9 +11,7 @@
         status="success"
       ></el-progress>
       <div class="controll-bar">
-        <span style="font-size: 18px; font-weight: 600; color: #2a2a2acc; margin-right: 10px">
-          项目统计
-        </span>
+        <span class="title"> 项目统计 </span>
         <div style="flex: 2"></div>
         <!-- <product-picker class="content"></product-picker> -->
         <el-popover placement="left-start" :offset="300" trigger="hover" content="...">
@@ -28,9 +26,9 @@
           ></el-button>
         </el-popover>
       </div>
-      <div class="chart">
-        <div ref="chart" :style="{ width: '100%', height: '100%' }">
-          <div style="text-align: center; line-height: 400px">等待数据加载...</div>
+      <div class="chart-box">
+        <div ref="chart" class="chart">
+          <div class="tip">等待数据加载...</div>
         </div>
       </div>
     </div>
@@ -273,7 +271,7 @@ export default Vue.extend({
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 
-  .chart {
+  .chart-box {
     width: 100%;
     height: 85%;
     padding: 0px 15px 0 15px;
@@ -282,6 +280,14 @@ export default Vue.extend({
     canvas {
       top: 0px !important;
       z-index: 0 !important;
+    }
+    .chart {
+      width: 100%;
+      height: 100%;
+    }
+    .tip {
+      text-align: center;
+      line-height: 400px;
     }
   }
 }
@@ -298,6 +304,12 @@ export default Vue.extend({
   align-items: center;
   // 多根轴线对其方式
   align-content: center;
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #2a2a2acc;
+    margin-right: 10px;
+  }
 }
 </style>
 

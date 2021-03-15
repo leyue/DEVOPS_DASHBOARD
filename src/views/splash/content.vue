@@ -1,32 +1,17 @@
 <template>
   <div>
-    <div class="app" :style="{ opacity }">
+    <div class="splash-content" :style="{ opacity }">
       <div class="logo">
-        <img
-          style="
-            margin-top: 30px;
-            margin-left: 15px;
-            width: 250px;
-            -webkit-font-smoothing: antialiased;
-          "
-          :src="scene.res.logo"
-          alt=""
-        />
+        <img :src="scene.res.logo" alt="" />
       </div>
       <div class="float-controll-bar">
-        <div style="font-size: 28px; text-align: left">
+        <div class="title">
           {{ scene.name }}
         </div>
-        <div style="text-align: left; width: 70%">
+        <div class="content">
           {{ scene.res.text }}
         </div>
-        <div
-          class="button"
-          style="width: 200px; height: 40px; line-height: 40px; margin-top: 5px"
-          @click="onShowDetail"
-        >
-          了解详情
-        </div>
+        <div class="button" @click="onShowDetail">了解详情</div>
       </div>
     </div>
     <div>
@@ -107,10 +92,10 @@ export default Vue.extend({
 </script>
 
 <style lang="less" scoped>
-.app {
+.splash-content {
+  box-sizing: border-box;
   z-index: 0;
   text-align: center;
-  font-size: 14px;
   width: 100%;
   position: fixed;
   top: 52px;
@@ -119,11 +104,31 @@ export default Vue.extend({
   transition: opacity 1.3s cubic-bezier(0.42, 0, 0.58, 1) 0s;
   .logo {
     margin-top: 30px;
+    img {
+      margin-top: 30px;
+      margin-left: 15px;
+      width: 250px;
+      -webkit-font-smoothing: antialiased;
+    }
   }
   .float-controll-bar {
     position: fixed;
     left: 150px;
     bottom: 150px;
+    .title {
+      font-size: 28px;
+      text-align: left;
+    }
+    .content {
+      text-align: left;
+      width: 70%;
+    }
+    .button {
+      width: 200px;
+      height: 40px;
+      line-height: 40px;
+      margin-top: 5px;
+    }
   }
 }
 
@@ -134,11 +139,16 @@ export default Vue.extend({
     background-color: #008dc5;
   }
 }
-.el-dialog__header {
-  padding: 0;
-}
 dialog {
   background-color: #150d0bbb !important;
   border-radius: 0;
+}
+</style>
+
+<style lang="less">
+.splash-content {
+  .el-dialog__header {
+    padding: 0;
+  }
 }
 </style>
