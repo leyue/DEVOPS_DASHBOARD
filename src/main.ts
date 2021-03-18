@@ -6,7 +6,7 @@ import router from './router'
 import store from './store'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import './glob/index.less'
+import './glob/css/index.less'
 
 Vue.use(Element)
 Vue.config.productionTip = false

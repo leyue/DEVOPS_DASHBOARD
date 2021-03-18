@@ -6,7 +6,7 @@ module.exports = {
     },
     // 'postcss-px-to-viewport': {
     //   //视窗宽度，对应设计稿的宽度，一般750
-    //   viewportWidth: 1920,
+    //   viewportWidth: 750,
     //   //视窗宽度，对应设计稿的宽度，根据750设备的宽度来指定，一般是1334，也可以不配置
     //   // viewportHeight: 1000,
     //   //指定px转换位视窗单位值的小数位数

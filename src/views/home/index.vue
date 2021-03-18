@@ -77,4 +77,37 @@ export default Vue.extend({
 @media screen and (orientation: landscape) {
   /*横屏...*/
 }
+
+// @media screen and (min-width: 768px) {
+//   .content {
+//     display: inline-flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: center;
+//     align-content: center;
+//     .label-product {
+//       display: none;
+//     }
+//     .input-product {
+//       margin-left: 5px;
+//       width: 200px;
+//     }
+//   }
+// }
+// @media screen and (max-width: 1280px) {
+//   .content {
+//     display: inline-flex;
+//     flex-direction: row;
+//     justify-content: center;
+//     align-items: center;
+//     align-content: center;
+//     .label-product {
+//       display: inline-block;
+//     }
+//     .input-product {
+//       margin-left: 20px;
+//       width: 300px;
+//     }
+//   }
+// }
 </style>
